@@ -6,7 +6,7 @@
 /*   By: mhirch <mhirch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 15:44:05 by mhirch            #+#    #+#             */
-/*   Updated: 2023/03/07 14:32:00 by mhirch           ###   ########.fr       */
+/*   Updated: 2023/03/07 15:10:57 by mhirch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,67 +32,45 @@ int	ft_isdigit(int m)
 		return (0);
 }
 
-int	ft_atoi(char str)
+int	ft_atoi(char *str)
 {
+	int	i;
 	int	r;
+	int	sign;
 
+	i = 0;
 	r = 0;
-    if (str >= 48 && str <= 57)
+	sign = 1;
+	while ((str[i] >= 9 && str[i] <= 13) || str[i] == 32)
+		i++;
+	if (str[i] == '-' || str[i] == '+')
 	{
-		r = r * 10 + (str - 48);
+		if (str[i] == '-')
+			sign *= -1;
+		i++;
 	}
-	return (r );
+	while (str[i] >= 48 && str[i] <= 57)
+	{
+		r = r * 10 + (str[i] - 48);
+		i++;
+	}
+	return (r * sign);
 }
-
-// int	ft_atoi(char str)
-// {
-// 	int	i;
-// 	int	r;
-// 	int	sign;
-
-// 	i = 0;
-// 	r = 0;
-// 	sign = 1;
-// 	while ((str >= 9 && str <= 13) || str == 32)
-// 		i++;
-// 	if (str == '-' || str == '+')
-// 	{
-// 		if (str == '-')
-// 			sign *= -1;
-// 		i++;
-// 	}
-// 	while (str >= 48 && str <= 57)
-// 	{
-// 		r = r * 10 + (str - 48);
-// 		i++;
-// 	}
-// 	return (r * sign);
-// }
 
 #define MAX_ARGS 100
 
-int store_arguments(int argc, char *argv[], char **args)
+int store_arguments(int argc, char *argv[], int args[])
 {
 	int i;
 	
-    // if (argc > MAX_ARGS) {
-    //     printf("Too many arguments.\n");
-    //     return -1;
-    // }
+    if (argc > MAX_ARGS) {
+        printf("Too many arguments.\n");
+        return -1;
+    }
 	i = 0;
 	while(i < argc)
 	{
-		// j = 0;
-		// while(!ft_isdigit(ft_atoi(argv[i][j++])))
-		// {
-		// 	if(!argv[i++])
-		// 		break ;
-		// 	printf("erreur\n");
-		// 	return 0;
-		// }
-		args[i] = (char *)malloc(ft_strlen(argv[i])+ 1);
-		// ft_strcpy(args[i], argv[i]);
-		args[i] = argv[i];
+		args[i] = ft_atoi(argv[i]);
 		i++;
 	}
 
@@ -101,7 +79,7 @@ int store_arguments(int argc, char *argv[], char **args)
 
 int main(int argc, char *argv[])
 {
-    char *args[MAX_ARGS];
+    int args[MAX_ARGS];
 	int i;
     int num_args;
 	
@@ -113,7 +91,7 @@ int main(int argc, char *argv[])
     printf("all Arguments: %d\n", num_args - 1);
 	while (i < num_args)
 	{
-		printf("%s\n", args[i++]);
+		printf("%d\n", args[i++]);
 	}
     return 0;
 }
