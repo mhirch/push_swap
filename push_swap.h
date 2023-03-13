@@ -6,7 +6,7 @@
 /*   By: mhirch <mhirch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 17:41:43 by mhirch            #+#    #+#             */
-/*   Updated: 2023/03/11 13:47:44 by mhirch           ###   ########.fr       */
+/*   Updated: 2023/03/13 18:13:11 by mhirch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,13 @@ typedef struct s_stack
 	int		*arr;
 	int size;
 	int capacity;
-	char **tab;
 } t_stack;
 
+typedef struct s_node
+{
+	int a;
+	struct s_node *next;
+} t_node;
 
 void push_back(t_stack *s, int b);
 void pop_back(t_stack *s);

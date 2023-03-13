@@ -6,17 +6,11 @@
 /*   By: mhirch <mhirch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 15:44:05 by mhirch            #+#    #+#             */
-/*   Updated: 2023/03/11 15:56:29 by mhirch           ###   ########.fr       */
+/*   Updated: 2023/03/13 18:07:02 by mhirch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "push_swap.h"
-
-typedef struct t_hada
-{ 
-	int *stack;
-	int coun;
-}t_hada;
 
 int	ft_strlen(char *str)
 {
@@ -138,15 +132,20 @@ int	ft_isdigit(char *m)
 	
 	isDigit = 1;
 	j = 0;
-    if(!m[j])
-        isDigit = 0;
-	while(m[j] && isDigit == 1)
+	if (!m[j])
+		isDigit = 0;
+	if (m[j] == '-' || m[j] == '+')
 	{
-  		if( m[j] >= 48 && m[j] <= 57)
-  		  isDigit = 1;
+		isDigit = 1;
+		j++;
+	}
+	while (m[j] && isDigit == 1)
+	{
+		if (m[j] >= 48 && m[j] <= 57)
+		  isDigit = 1;
  		else
-  		  isDigit = 0;
-  		j++;
+		  isDigit = 0;
+		j++;
 	}
 	return(isDigit);
 }
@@ -271,6 +270,7 @@ int store_arguments(int argc, char *argv[], int args[])
 		i++;
 	}
 	i = 0;
+	printf("number of Arguments: %d\n", argc - 1);
 	while(i < s->capacity)
 		printf("%d\n", s->arr[i++]);
 	return argc;
@@ -278,19 +278,17 @@ int store_arguments(int argc, char *argv[], int args[])
 
 int main(int argc, char *argv[])
 {
-    int args[100];
+	int args[100];
 	int i;
     int num_args;
-	t_stack s;
+	t_stack *s ;
 	if(argc > 1)
 	{
 		num_args = store_arguments(argc, argv, args);
-    	if (num_args == -1)
+    	// printf("number of Arguments: %d\n", argc - 1);
+  		if (num_args == -1)
     	    return 1;
-		i = 0;
-    	printf("all Arguments: %d\n", num_args - 1);
-		// while(i < num_args)
-		// 	printf("%d\n", s.arr[i++]);
 	}
+	
     return 0;
 }
