@@ -6,7 +6,7 @@
 /*   By: mhirch <mhirch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 15:44:05 by mhirch            #+#    #+#             */
-/*   Updated: 2023/03/14 19:05:51 by mhirch           ###   ########.fr       */
+/*   Updated: 2023/03/15 13:41:03 by mhirch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -276,16 +276,22 @@ void pop_back(t_stack *s) {
 // 	return argc;
 // }
 
+t_node *newnode(int data)
+{
+	t_node *newNode ;
+	newNode = (t_node*)malloc(sizeof(t_node));
+	if (!newNode)
+		exit (1);
+    newNode->next = NULL;
+	return (newNode);
+	
+}
+
 void addNode(t_node **head, int data) 
 {
-    t_node *newNode ;
 	t_node* temp;
-	
-	newNode = (t_node*)malloc(sizeof(t_node));
-    newNode->data = data;
-    newNode->next = NULL;
     if (*head == NULL) 
-        *head = newNode;
+        *head = newnode(data);
     else
     {
         temp = *head;
@@ -293,7 +299,7 @@ void addNode(t_node **head, int data)
         {
             temp = temp->next;
         }
-        temp->next = newNode;
+        temp->next = newnode(data);
     }
 }
 
@@ -310,31 +316,28 @@ void printList(t_node* head)
     printf("\n");
 }
 
-int main(int argc, char *argv[])
+void check_and_convert(int argc, char *argv)
 {
-	// int args[100];
-	// int i;
-    // int num_args;
-	// t_stack *s ;
-	// if(argc > 1)
-	// {
-	// 	num_args = store_arguments(argc, argv, args);
-    // 	// printf("number of Arguments: %d\n", argc - 1);
-  	// 	if (num_args == -1)
-    // 	    return 1;
-	// }
 	t_node* head;
-	int i;
-	int data;
-
 	head = NULL;
-	i = 1;
-	while (i < argc)
-	{
-        data = ft_atoi(argv[i]);
-        addNode(&head, data);
-		i++;
-    }
+	int data;
+	
+	
+		printf("-----\n");
+		data = ft_atoi(argv);
+		addNode(&head, data);
+	
+}
+
+int main(int argc, char **argv)
+{
+	int	i ;
+	t_node* head;
+	
+	head = NULL;
+	i = 0;
+	while(++i < argc)
+		check_and_convert(argc, argv[i]);
 	printList(head);
     return 0;
 }

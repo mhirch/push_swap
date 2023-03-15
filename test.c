@@ -57,3 +57,61 @@ int main(int argc, char* argv[])
     
     return 0;
 }
+
+
+/////////////////////////////////////////////////////////////////////////////////////////
+void addNode(t_node **head, int data) 
+{
+    t_node *newNode;
+	t_node* temp;
+	
+	newNode = (t_node*)malloc(sizeof(t_node));
+    newNode->data = data;
+    newNode->next = NULL;
+    if (*head == NULL) 
+        *head = newNode;
+    else
+    {
+        temp = *head;
+        while (temp->next != NULL)
+        {
+            temp = temp->next;
+        }
+        temp->next = newNode;
+    }
+}
+
+void printList(t_node* head)
+{
+    t_node* temp;
+	
+	temp = head;
+    while (temp != NULL)
+	{
+        printf("%d ", temp->data);
+        temp = temp->next;
+    }
+    printf("\n");
+}
+
+
+int main(int argc, char **argv)
+{
+	// int args[100];
+	int i;
+    // int num_args;
+	// t_stack *s ;
+	// if(argc > 1)
+	// {
+	// 	num_args = store_arguments(argc, argv, args);
+    // 	// printf("number of Arguments: %d\n", argc - 1);
+  	// 	if (num_args == -1)
+    // 	    return 1;
+	// }
+	i = 0;
+	while(++i < argc)
+		check_and_convert(argc, argv[i]);
+	// printList(head);
+    return 0;
+}
+///////////////////////////////////////////////
