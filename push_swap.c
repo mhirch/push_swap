@@ -6,7 +6,7 @@
 /*   By: mhirch <mhirch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 15:44:05 by mhirch            #+#    #+#             */
-/*   Updated: 2023/03/15 13:41:03 by mhirch           ###   ########.fr       */
+/*   Updated: 2023/03/19 14:47:47 by mhirch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,8 +132,8 @@ int	ft_isdigit(char *m)
 	
 	isDigit = 1;
 	j = 0;
-	if (!m[j])
-		isDigit = 0;
+	if (!m)
+		return 0;
 	if (m[j] == '-' || m[j] == '+')
 	{
 		isDigit = 1;
@@ -141,7 +141,7 @@ int	ft_isdigit(char *m)
 	}
 	while (m[j] && isDigit == 1)
 	{
-		if (m[j] >= 48 && m[j] <= 57)
+		if ((m[j] >= 48 && m[j] <= 57) || m[j] == ' ')
 		  isDigit = 1;
  		else
 		  isDigit = 0;
@@ -233,48 +233,62 @@ void pop_back(t_stack *s) {
 	if (s->size > 0)
  		s->size--;
 }
-// t_stack *create_stack(int a) {
-// 	t_stack *s = malloc(sizeof(t_stack));
-// 	s->capacity = a;
-// 	s->size = 0;
-// 	s->arr = malloc(sizeof(int) * a);
-// 	return s;
-// }
+t_stack *create_stack(int a) {
+	t_stack *s = malloc(sizeof(t_stack));
+	s->capacity = a;
+	s->size = 0;
+	s->arr = malloc(sizeof(int) * a);
+	return s;
+}
 
-// int store_arguments(int argc, char *argv[], int args[])
-// {
-// 	int i, j;
-// 	char *all;
-// 	t_stack *s = create_stack(1);
-// 	char **tab;
-// 	i = 1;
-// 	while(i < argc)
-// 	{
-// 		if(ft_isdigit(argv[i]) == 1)
-// 			all = ft_strjoin(all,argv[i++]);
-// 		else 
-// 		{
-// 			write(1, "erreur\n", 8);
-// 			return -1;
-// 		}
-// 	}
-// 	s->capacity = 0;
-// 	tab = ft_split(all, ' ');
-// 	while (tab[s->capacity])
-// 		s->capacity++;
-// 	s->arr = malloc(s->capacity * sizeof(int));
-// 	i = 0;
-// 	while (tab[i])
-// 	{
-// 		s->arr[i] = ft_atoi(tab[i]);
-// 		i++;
-// 	}
-// 	i = 0;
-// 	printf("number of Arguments: %d\n", argc - 1);
-// 	while(i < s->capacity)
-// 		printf("%d\n", s->arr[i++]);
-// 	return argc;
-// }
+int	ft_strcmp(int str1, int str2)
+{
+	int j;
+	
+	if (!str2 || !str1)
+		j = 1337;
+	else if (str1 == str2)
+		j = 0;
+	else
+		j = 1;
+	return (j);
+}
+
+void store_arguments(int argc, char *argv[])
+{
+	int i, j;
+	char *all;
+	t_stack *s = create_stack(1);
+	char **tab;
+	i = 1;
+	while(i < argc)
+	{
+		if(ft_isdigit(argv[i]) == 1)
+			all = ft_strjoin(all,argv[i++]);
+		else 
+		{
+			write(1, "erreur\n", 8);
+			exit(1);
+		}
+	}
+	s->capacity = 0;
+	tab = ft_split(all, ' ');
+	while (tab[s->capacity])
+		s->capacity++;
+	s->arr = malloc(s->capacity * sizeof(int));
+	i = 0;
+	while (tab[i])
+	{
+		s->arr[i] = ft_atoi(tab[i]);
+		i++;
+	}
+	i = 1;
+	printf("number of Arguments: %d\n", argc - 1);
+	while(i < s->capacity)
+		printf("%d\n", s->arr[i++]);
+
+}
+
 
 t_node *newnode(int data)
 {
@@ -282,9 +296,9 @@ t_node *newnode(int data)
 	newNode = (t_node*)malloc(sizeof(t_node));
 	if (!newNode)
 		exit (1);
+	newNode->data = data;
     newNode->next = NULL;
 	return (newNode);
-	
 }
 
 void addNode(t_node **head, int data) 
@@ -316,28 +330,87 @@ void printList(t_node* head)
     printf("\n");
 }
 
-void check_and_convert(int argc, char *argv)
+t_node	*check_and_convert(int argc, char **argv)
 {
-	t_node* head;
-	head = NULL;
 	int data;
+	t_node *head;
+	int i;
+	int j;
 	
-	
-		printf("-----\n");
-		data = ft_atoi(argv);
-		addNode(&head, data);
-	
+	head = NULL;
+    i = 1;
+    while (i < argc)
+    {
+            j = i + 1;
+            while (argv[j])
+            {
+                if (ft_strcmp(ft_atoi(argv[i]), ft_atoi(argv[j++])) == 0)
+                {
+                    printf("erreur-duplcated\n");
+                    exit(1);
+                }
+            }
+            if (ft_isdigit(argv[i]) == 0)
+            {
+                printf("erreur-not number\n");
+                exit(1);
+            }
+            i++;
+	data = ft_atoi(argv[i]);
+	addNode(&head, data);
+	i++;
+	}
+	return head;
 }
 
-int main(int argc, char **argv)
-{
-	int	i ;
-	t_node* head;
+// void store_arguments(int argc, char *argv[])
+// {
+// 	t_node* head;
+// 	int i, j;
+// 	t_stack *s;
+// 	char *all;
+// 	char **tab;
+
+// 	head = NULL;
+// 	i = 1;
+// 	all = NULL;
+// 	while(i < argc)
+// 	{
+// 		if(ft_isdigit(argv[i]) == 1)
+// 			all = ft_strjoin(all,argv[i++]);
+// 		else 
+// 		{
+// 			write(1, "erreur\n", 8);
+// 			exit(0);
+// 		}
+// 	}
+// 	printf("%s", all);
+// 	// s->capacity = 0;
+// 	tab = ft_split(all, ' ');
+// 	while (tab[s->capacity])
+// 		s->capacity++;
+// 	s->arr = malloc(s->capacity * sizeof(int));
+// 	i = 0;
+// 	while (tab[i])
+// 	{
+// 		s->arr[i] = ft_atoi(tab[i]);
+// 		i++;
+// 	}
+// 	i = 0;
+// 	printf("number of Arguments: %d\n", argc - 1);
+// 	while(i < s->capacity)
+// 		printf("%d\n", s->arr[i++]);
 	
-	head = NULL;
-	i = 0;
-	while(++i < argc)
-		check_and_convert(argc, argv[i]);
-	printList(head);
+// }
+
+int	main(int argc, char **argv)
+{
+
+	t_node* head;
+	int i = 0;
+	
+	store_arguments(argc, argv);
+	// head = check_and_convert(argc, argv);
+	// printList(head);
     return 0;
 }
