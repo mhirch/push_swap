@@ -6,7 +6,7 @@
 /*   By: mhirch <mhirch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 15:44:05 by mhirch            #+#    #+#             */
-/*   Updated: 2023/03/19 14:47:47 by mhirch           ###   ########.fr       */
+/*   Updated: 2023/03/19 17:00:27 by mhirch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -254,22 +254,36 @@ int	ft_strcmp(int str1, int str2)
 	return (j);
 }
 
-void store_arguments(int argc, char *argv[])
+void store_arguments(int argc, char *argv[], t_stack *s)
 {
 	int i, j;
 	char *all;
-	t_stack *s = create_stack(1);
+	// t_stack *s = create_stack(1);
 	char **tab;
 	i = 1;
 	while(i < argc)
 	{
-		if(ft_isdigit(argv[i]) == 1)
-			all = ft_strjoin(all,argv[i++]);
-		else 
+		j = i + 1;
+		while (argv[j])
 		{
-			write(1, "erreur\n", 8);
-			exit(1);
+			if (ft_isdigit(argv[i]) == 0)
+			{
+                printf("erreur-not number\n");
+                exit(1);
+            }
+			if (ft_strcmp(ft_atoi(argv[i]), ft_atoi(argv[j++])) == 0)
+			{
+                printf("erreur-duplicated\n");
+                exit(1);
+            }
+			// else 
+			// {
+			// 	write(1, "erreur\n", 8);
+			// 	exit(1);
+			// }
 		}
+		all = ft_strjoin(all,argv[i]);
+		i++; 
 	}
 	s->capacity = 0;
 	tab = ft_split(all, ' ');
@@ -282,11 +296,11 @@ void store_arguments(int argc, char *argv[])
 		s->arr[i] = ft_atoi(tab[i]);
 		i++;
 	}
-	i = 1;
+	i = 0;
 	printf("number of Arguments: %d\n", argc - 1);
-	while(i < s->capacity)
-		printf("%d\n", s->arr[i++]);
-
+	// while(i < s->capacity)
+	// 	printf("%d\n", s->arr[i++]);
+	// return s->arr;
 }
 
 
@@ -330,87 +344,26 @@ void printList(t_node* head)
     printf("\n");
 }
 
-t_node	*check_and_convert(int argc, char **argv)
+t_node	*check_and_convert(int argc, char **argv, t_stack *s)
 {
-	int data;
 	t_node *head;
 	int i;
-	int j;
 	
 	head = NULL;
-    i = 1;
-    while (i < argc)
-    {
-            j = i + 1;
-            while (argv[j])
-            {
-                if (ft_strcmp(ft_atoi(argv[i]), ft_atoi(argv[j++])) == 0)
-                {
-                    printf("erreur-duplcated\n");
-                    exit(1);
-                }
-            }
-            if (ft_isdigit(argv[i]) == 0)
-            {
-                printf("erreur-not number\n");
-                exit(1);
-            }
-            i++;
-	data = ft_atoi(argv[i]);
-	addNode(&head, data);
-	i++;
-	}
+    i = 0;
+    while (i < s->capacity )
+		addNode(&head, s->arr[i++]);
 	return head;
 }
 
-// void store_arguments(int argc, char *argv[])
-// {
-// 	t_node* head;
-// 	int i, j;
-// 	t_stack *s;
-// 	char *all;
-// 	char **tab;
-
-// 	head = NULL;
-// 	i = 1;
-// 	all = NULL;
-// 	while(i < argc)
-// 	{
-// 		if(ft_isdigit(argv[i]) == 1)
-// 			all = ft_strjoin(all,argv[i++]);
-// 		else 
-// 		{
-// 			write(1, "erreur\n", 8);
-// 			exit(0);
-// 		}
-// 	}
-// 	printf("%s", all);
-// 	// s->capacity = 0;
-// 	tab = ft_split(all, ' ');
-// 	while (tab[s->capacity])
-// 		s->capacity++;
-// 	s->arr = malloc(s->capacity * sizeof(int));
-// 	i = 0;
-// 	while (tab[i])
-// 	{
-// 		s->arr[i] = ft_atoi(tab[i]);
-// 		i++;
-// 	}
-// 	i = 0;
-// 	printf("number of Arguments: %d\n", argc - 1);
-// 	while(i < s->capacity)
-// 		printf("%d\n", s->arr[i++]);
-	
-// }
-
 int	main(int argc, char **argv)
 {
-
 	t_node* head;
+	t_stack *s = create_stack(1);
 	int i = 0;
 	
-	store_arguments(argc, argv);
-	// head = check_and_convert(argc, argv);
-	// printList(head);
+	store_arguments(argc, argv,s);
+	head = check_and_convert(argc, argv ,s);
+	printList(head);
     return 0;
 }
