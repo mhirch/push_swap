@@ -6,7 +6,7 @@
 /*   By: mhirch <mhirch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 17:41:43 by mhirch            #+#    #+#             */
-/*   Updated: 2023/03/19 14:46:57 by mhirch           ###   ########.fr       */
+/*   Updated: 2023/03/22 12:33:05 by mhirch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ typedef struct s_node
 typedef struct s_stack
 {
 	int		*arr;
-	t_node *node;
+	// t_node *node;
 	int size;
 	int capacity;
 } t_stack;
