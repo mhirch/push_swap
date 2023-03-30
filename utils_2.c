@@ -6,7 +6,7 @@
 /*   By: mhirch <mhirch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 14:29:51 by mhirch            #+#    #+#             */
-/*   Updated: 2023/03/29 15:29:39 by mhirch           ###   ########.fr       */
+/*   Updated: 2023/03/30 17:45:05 by mhirch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ t_node *newnode(int data)
 	return (newNode);
 }
 
-void addnode(t_node **head, int data) 
+void push(t_node **head, int data) 
 {
 	t_node* temp;
     if (*head == NULL) 
@@ -52,45 +52,45 @@ void printList(t_node *head)
 
 void	check(char **tab)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 	
 	j = 0;
 	i = 0;
-	while(tab[i])
+	while (tab[i])
 	{
 		if (ft_atoi(tab[i]) > INT_MAX || ft_atoi(tab[i]) < INT_MIN)
 		{
 			printf("erreur-out_of_int\n");
-            exit(1);
+			exit(1);
 		}
 		if (ft_isdigit(tab[i]) == 0)
 		{
-            printf("erreur-not number\n");
-            exit(1);
-        }
+			printf("erreur-not number\n");
+			exit(1);
+		}
 		j = i + 1;
 		while (tab[j])
 		{
 			if (ft_strcmp(ft_atoi(tab[i]), ft_atoi(tab[j++])) == 0)
 			{
-                printf("erreur-duplicated\n");
-                exit(1);
-            }
+				printf("erreur-duplicated\n");
+				exit(1);
+			}
 		}
 		i++;
 	}
 }
 
-t_stack	*store_and_check(int argc, char **argv)
+t_node	*store_and_check(int argc, char **argv)
 {
 	int		i;
 	char	*args;
 	char	**tab;
-	t_stack	*a;
-	t_node *head;
+	t_info	*info;
+	t_node *stack_a;
 
-	head = NULL;
+	stack_a = NULL;
 	args = NULL;
 	i = 1;
 	while (i < argc)
@@ -99,14 +99,19 @@ t_stack	*store_and_check(int argc, char **argv)
 	i = 0;
 	check(tab);
 	while (tab[i])
-		i++;
-	a = create_stack(i);
+	{
+		push(&stack_a, ft_atoi(tab[i]));
+		free(tab[i++]);
+	}
+	// while (tab[i])
+	// 	i++;
+	// a = create_stack(i);
 	i = -1;
 	while (tab[++i])
-		a->arr[i] = ft_atoi(tab[i]);
+		info->arr[i] = ft_atoi(tab[i]);
 	// i = -1;
-	// while (++i < a->capacity)
-	// 	addnode(&head,a->arr[i]);
+	// while (++i < info->capacity)
+	// 	addnode(&head,info->arr[i]);
 	// return(head);
-	return(a);
+	return(stack_a);
 }
