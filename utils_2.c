@@ -6,7 +6,7 @@
 /*   By: mhirch <mhirch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/23 14:29:51 by mhirch            #+#    #+#             */
-/*   Updated: 2023/03/30 17:45:05 by mhirch           ###   ########.fr       */
+/*   Updated: 2023/03/31 15:29:34 by mhirch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,9 +103,9 @@ t_node	*store_and_check(int argc, char **argv)
 		push(&stack_a, ft_atoi(tab[i]));
 		free(tab[i++]);
 	}
-	// while (tab[i])
-	// 	i++;
-	// a = create_stack(i);
+	while (tab[i])
+		i++;
+	info = create_info(i);
 	i = -1;
 	while (tab[++i])
 		info->arr[i] = ft_atoi(tab[i]);

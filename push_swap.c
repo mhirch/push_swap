@@ -6,7 +6,7 @@
 /*   By: mhirch <mhirch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/02 15:44:05 by mhirch            #+#    #+#             */
-/*   Updated: 2023/03/30 17:46:38 by mhirch           ###   ########.fr       */
+/*   Updated: 2023/03/31 15:31:27 by mhirch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@
 //  		s->size--;
 // }
 
-t_info *create_info(int a) {
+t_info *create_info(int a)
+{
 	t_info *s = malloc(sizeof(t_info));
 	s->capacity = a;
 	s->size = 0;
@@ -101,7 +102,7 @@ int	main(int argc, char **argv)
 	// {
 	// 	printf("%d ", info->arr[i]);
 	// }
-	// ft_lis(info);
+	ft_lis(info);
 	printList(stack_a);
 	// printf("%d\n", a->a->arr[0]);
     return 0;

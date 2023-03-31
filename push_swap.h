@@ -6,7 +6,7 @@
 /*   By: mhirch <mhirch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/10 17:41:43 by mhirch            #+#    #+#             */
-/*   Updated: 2023/03/30 17:45:18 by mhirch           ###   ########.fr       */
+/*   Updated: 2023/03/31 15:29:25 by mhirch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ typedef struct s_info
 
 // void	push_back(t_stack *s, int b);
 // void	pop_back(t_stack *s);
-t_info	*create_stack(int a);
+t_info	*create_info(int a);
 char	*ft_strjoin(char const *s1, char const *s2);
 int		ft_atoi(char *str);
 int		ft_isdigit(char *m);
