@@ -5,49 +5,20 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mhirch <mhirch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/23 14:29:51 by mhirch            #+#    #+#             */
-/*   Updated: 2023/03/31 15:29:34 by mhirch           ###   ########.fr       */
+/*   Created: 2023/04/01 12:37:35 by mhirch            #+#    #+#             */
+/*   Updated: 2023/04/07 15:57:00 by mhirch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-t_node *newnode(int data)
+t_info *initialize_info(int a)
 {
-	t_node *newNode ;
-	newNode = (t_node*)malloc(sizeof(t_node));
-	if (!newNode)
-		exit (1);
-	newNode->data = data;
-    newNode->next = NULL;
-	return (newNode);
-}
-
-void push(t_node **head, int data) 
-{
-	t_node* temp;
-    if (*head == NULL) 
-        *head = newnode(data);
-    else
-    {
-        temp = *head;
-        while (temp->next != NULL)
-            temp = temp->next;
-        temp->next = newnode(data);
-    }
-}
-
-void printList(t_node *head)
-{
-    t_node* temp;
-	
-	temp = head;
-    while (temp != NULL)
-	{
-        printf("%d ", temp->data);
-        temp = temp->next;
-    }
-    printf("\n");
+	t_info *s = malloc(sizeof(t_info));
+	s->capacity = a;
+	s->size = 0;
+	s->arr = malloc(sizeof(int) * a);
+	return s;
 }
 
 void	check(char **tab)
@@ -59,14 +30,9 @@ void	check(char **tab)
 	i = 0;
 	while (tab[i])
 	{
-		if (ft_atoi(tab[i]) > INT_MAX || ft_atoi(tab[i]) < INT_MIN)
+		if (ft_atoi(tab[i]) > INT_MAX || ft_atoi(tab[i]) < INT_MIN || ft_isdigit(tab[i]) == 0)
 		{
-			printf("erreur-out_of_int\n");
-			exit(1);
-		}
-		if (ft_isdigit(tab[i]) == 0)
-		{
-			printf("erreur-not number\n");
+			printf("erreur\n");
 			exit(1);
 		}
 		j = i + 1;
@@ -74,44 +40,72 @@ void	check(char **tab)
 		{
 			if (ft_strcmp(ft_atoi(tab[i]), ft_atoi(tab[j++])) == 0)
 			{
-				printf("erreur-duplicated\n");
+				printf("erreur\n");
 				exit(1);
 			}
 		}
 		i++;
 	}
 }
+void printList(t_list *head)
+{
+    t_list* temp;
+	
+	temp = head;
+    while (temp != NULL)
+	{
+        printf("%d ", temp->data);
+        temp = temp->next;
+    }
+    printf("\n");
+}
 
-t_node	*store_and_check(int argc, char **argv)
+t_list *newnode(int data)
+{
+	t_list *newNode ;
+	newNode = (t_list*)malloc(sizeof(t_list));
+	if (!newNode)
+		exit (1);
+	newNode->data = data;
+    newNode->next = NULL;
+	return (newNode);
+}
+
+void add_node(t_list **head, int data) 
+{
+	t_list *temp;
+    if (*head == NULL) 
+        *head = newnode(data);
+    else
+    {
+        temp = *head;
+        while (temp->next != NULL)
+            temp = temp->next;
+        temp->next = newnode(data);
+    }
+}
+void	store_and_check(t_info **info,t_list **stack_a, int argc, char **argv)
 {
 	int		i;
 	char	*args;
 	char	**tab;
-	t_info	*info;
-	t_node *stack_a;
+	
 
-	stack_a = NULL;
 	args = NULL;
 	i = 1;
 	while (i < argc)
 		args = ft_strjoin(args, argv[i++]);
 	tab = ft_split(args, ' ');
-	i = 0;
 	check(tab);
-	while (tab[i])
-	{
-		push(&stack_a, ft_atoi(tab[i]));
-		free(tab[i++]);
-	}
+	i = 0;
 	while (tab[i])
 		i++;
-	info = create_info(i);
+	(*info) = initialize_info(i);
 	i = -1;
 	while (tab[++i])
-		info->arr[i] = ft_atoi(tab[i]);
-	// i = -1;
-	// while (++i < info->capacity)
-	// 	addnode(&head,info->arr[i]);
-	// return(head);
-	return(stack_a);
+	{
+		(*info)->arr[i] = ft_atoi(tab[i]);
+		add_node(stack_a,(*info)->arr[i]);
+	}
+	printList(*stack_a);
 }

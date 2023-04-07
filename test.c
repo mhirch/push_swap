@@ -1,72 +1,115 @@
-int *LIS(int arr[], int n, int *len)
+// function bubbleSort(arr):
+//     n = length(arr)
+//     for i from 0 to n-1:
+//         for j from 0 to n-i-1:
+//             if arr[j] > arr[j+1]:
+//                 swap(arr[j], arr[j+1])
+# include <stdio.h>
+#include "push_swap.h"
+
+void    swap(int *a, int *b)
 {
-    int lis[n];
-    int prev[n];
-    int max_lis = 0, max_lis_index = 0;
-    
-    // Initialize LIS and prev arrays
-    for(int i = 0; i < n; i++)
+    int *tmp;
+
+    tmp = *a;
+    *a = *b;
+    *b = tmp;
+    printf("sa\n");
+}
+void bubblesort(int *arr, int n)
+{
+    int i = 0;
+    int j ;
+    while(i < n-1)
     {
-        lis[i] = 1;
-        prev[i] = -1;
-    }
-    
-    // Compute LIS values in bottom-up manner
-    for(int i = 1; i < n; i++)
-    {
-        for(int j = 0; j < i; j++)
+      j = 0;
+        while(j < n - i - 1)
         {
-            if(arr[i] > arr[j] && lis[i] < lis[j] + 1)
+            if (arr[j] > arr[j + 1])
             {
-                lis[i] = lis[j] + 1;
-                prev[i] = j;
+                swap(&arr[j], &arr[j+1]);
             }
+            j++;
         }
-        
-        // Update max_lis and max_lis_index
-        if(lis[i] > max_lis)
+        i++;
+    }
+}
+
+void rotate(int *arr)
+{
+    int tmp;
+    int j = 0;
+    t_stack *a;
+
+    a->arr
+}
+
+// int main(int argc, char **argv)
+// {
+//     int i = 0;
+//     // int arr[] = {12, 18 ,2 , 1 , 56 };
+
+//     printf("--");
+//     while (i< argc - 1)
+//         bubblesort(argv[i++], 5);
+//     while(i < 5)
+//         printf(" %d", arr[i++]);
+// }
+
+void ft_lis(t_stack	*stack_a)
+{
+	int *length;
+    int *lis;
+    int    i;
+    int    j;
+	int max_lis;
+	int max_lis_index;
+	int *result ;
+	int current_index;
+	int current_value;
+
+    length = malloc(stack_a->capacity * sizeof(int));
+    lis = malloc(stack_a->capacity * sizeof(int));
+    i = 1;
+    j = -1;
+    while( ++j < stack_a->capacity)
+	{
+        length[j] = 1;
+		lis[j] = -1;
+	}
+    j = 0;
+	max_lis = 0;
+	max_lis_index = 0;
+    while(i < stack_a->capacity)
+    {
+        while (j < i)
+        {    
+            if (stack_a->arr[j] < stack_a->arr[i] && length[i] <= length[j] + 1)
+            {
+                length[i] = length[j] + 1;
+				lis[i] = j;
+            }
+            j++;
+        }
+		if (length[i] > max_lis)
         {
-            max_lis = lis[i];
+            max_lis = length[i];
             max_lis_index = i;
         }
+        i++;
+        j = 0;
     }
-    
-    // Construct LIS array
-    int *result = malloc(max_lis * sizeof(int));
-    int current_index = max_lis - 1;
-    int current_value = arr[max_lis_index];
-    
-    while(current_index >= 0)
+	result = malloc(max_lis * sizeof(int));
+    current_index = max_lis - 1;
+    current_value = stack_a->arr[max_lis_index];
+	while(current_index >= 0)
     {
         result[current_index] = current_value;
         current_index--;
-        current_value = arr[prev[max_lis_index]];
-        max_lis_index = prev[max_lis_index];
+        current_value = stack_a->arr[lis[max_lis_index]];
+        max_lis_index = lis[max_lis_index];
     }
-    
-    // Set length of LIS
-    *len = max_lis;
-    
-    return result;
-}
-
-int main()
-{
-    int arr[] = {10, 22, 9, 33, 21, 50, 41, 60};
-    int n = sizeof(arr)/sizeof(arr[0]);
-    
-    int len;
-    int *lis = LIS(arr, n, &len);
-    
-    printf("Length of LIS is %d\n", len);
-    printf("LIS is ");
-    
-    for(int i = 0; i < len; i++)
-    {
-        printf("%d ", lis[i]);
-    }
-    
-    free(lis);
-    
-    return 0;
+	for (int i = 0; i < max_lis; i++) {
+		printf("%d | ", result[i]);
+	}
 }

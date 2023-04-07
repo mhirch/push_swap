@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mhirch <mhirch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/23 14:18:39 by mhirch            #+#    #+#             */
-/*   Updated: 2023/03/28 14:56:15 by mhirch           ###   ########.fr       */
+/*   Created: 2023/04/01 12:43:04 by mhirch            #+#    #+#             */
+/*   Updated: 2023/04/02 13:18:56 by mhirch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,11 @@ int	ft_isdigit(char *m)
 	return (isdigit);
 }
 
-int	ft_atoi(char *str)
+long	ft_atoi(char *str)
 {
-	int	i;
-	int	r;
-	int	sign;
+	int		i;
+	long	r;
+	int		sign;
 
 	i = 0;
 	r = 0;

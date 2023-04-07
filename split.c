@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mhirch <mhirch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/23 14:20:27 by mhirch            #+#    #+#             */
-/*   Updated: 2023/03/23 14:20:47 by mhirch           ###   ########.fr       */
+/*   Created: 2023/04/01 12:42:38 by mhirch            #+#    #+#             */
+/*   Updated: 2023/04/05 17:26:54 by mhirch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*ft_substr(char *s, unsigned int start, size_t len)
 	i = 0;
 	if (!s)
 		return (NULL);
-	if (len > ft_strlen(s))
+	if (len > (size_t)ft_strlen(s))
 		len = ft_strlen(s);
 	substring = malloc(sizeof(char) * len + 1);
 	if (!substring)
