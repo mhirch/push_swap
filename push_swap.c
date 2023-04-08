@@ -6,11 +6,12 @@
 /*   By: mhirch <mhirch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 12:32:11 by mhirch            #+#    #+#             */
-/*   Updated: 2023/04/07 18:03:27 by mhirch           ###   ########.fr       */
+/*   Updated: 2023/04/08 17:43:53 by mhirch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
 int is_sorted(t_info *a)
 {
 	int i;
@@ -91,26 +92,62 @@ t_lis_info *initialize_lis(int a)
 	}
 	return(lis);
 }
-
+void printList(t_list *head)
+{
+	t_list* temp;
+	
+	temp = head;
+	while (temp != NULL)
+	{
+		printf("%d ", temp->data);
+		temp = temp->next;
+	}
+	printf("\n");
+}
+// void	rotate(t_list *stack)
+// {
+// 	t_list *ptr;
+// 	int temp;
+	
+// 	ptr = stack;
+// 	while(ptr->next != NULL)
+// 		ptr = ptr->next;
+// 	temp = stack->data ;
+// 	stack->data = ptr->data;
+// 	while (stack->next)
+// 		stack = stack->next;
+// 	stack->data = temp;
+// }
 void	sort(t_info **info, t_list **a)
 {
 	t_list *b;
 	t_lis_info *lis;
+	
+	b = NULL;
 	lis = initialize_lis((*info)->capacity);
 	get_index(lis, *info);
 	get_lis(lis, *info);
-	for (int i = 0; i < lis->length_lis; i++) {
-		printf("%d | ", lis->lis[i]);
-	}
-	printf("\n%d", lis->length_lis);
+	// for (int i = 0; i < lis->length_lis; i++) {
+	// 	printf("%d | ", lis->lis[i]);
+	// }
 	while ((*info)->capacity-- > 0)
 	{
 		if (is_lis_in_stack(*a, lis) == 1)
-			rotate
-		else
-			push(b);
-			
+		{
+			make_operation("ra", a, &b);
+			printf("A: ");
+			printList(*a);
+		}
+		if (is_lis_in_stack(*a, lis) == 0)
+		{
+			make_operation("pb", a, &b);
+			printf("A: ");
+			printList(*a);
+			printf("B: ");
+			printList(b);
+		}
 	}
+	// printList(*a);
 }
 int is_lis_in_stack(t_list *a, t_lis_info *lis)
 {

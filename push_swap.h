@@ -48,14 +48,24 @@ typedef struct s_lis_info
 int		ft_strlen(char *str);
 int		ft_isdigit(char *m);
 long	ft_atoi(char *str);
-int		ft_strcmp(int str1, int str2);
+int		ft_intcmp(int a, int b);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	**ft_split(char *s, char c);
+
 /*just for that*/
 void	store_and_check(t_info **info, t_list **stack_a,int argc, char **argv);
 t_info *initialize_info(int a);
+int is_lis_in_stack(t_list *a, t_lis_info *lis);
+t_list *newnode(int data);
 
-void bubblesort(int *arr, int n);
+/*sort*/
+void	sort(t_info **info, t_list **a);
+void	bubblesort(int *arr, int n);
+
+/*operations*/
+void    make_operation(char *x, t_list **a, t_list **b);
+void	rotate(t_list *stack);
+
 
 
 #endif

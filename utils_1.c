@@ -6,7 +6,7 @@
 /*   By: mhirch <mhirch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 12:43:04 by mhirch            #+#    #+#             */
-/*   Updated: 2023/04/02 13:18:56 by mhirch           ###   ########.fr       */
+/*   Updated: 2023/04/08 15:04:33 by mhirch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,13 +74,13 @@ long	ft_atoi(char *str)
 	return (r * sign);
 }
 
-int	ft_strcmp(int str1, int str2)
+int	ft_intcmp(int a, int b)
 {
 	int	j;
 	
-	if (!str2 || !str1)
+	if (!b || !a)
 		j = 1337;
-	else if (str1 == str2)
+	else if (a == b)
 		j = 0;
 	else
 		j = 1;

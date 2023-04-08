@@ -6,7 +6,7 @@
 /*   By: mhirch <mhirch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 12:37:35 by mhirch            #+#    #+#             */
-/*   Updated: 2023/04/07 15:57:00 by mhirch           ###   ########.fr       */
+/*   Updated: 2023/04/08 15:04:50 by mhirch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	check(char **tab)
 		j = i + 1;
 		while (tab[j])
 		{
-			if (ft_strcmp(ft_atoi(tab[i]), ft_atoi(tab[j++])) == 0)
+			if (ft_intcmp(ft_atoi(tab[i]), ft_atoi(tab[j++])) == 0)
 			{
 				printf("erreur\n");
 				exit(1);
@@ -47,18 +47,18 @@ void	check(char **tab)
 		i++;
 	}
 }
-void printList(t_list *head)
-{
-    t_list* temp;
+// void printList(t_list *head)
+// {
+// 	t_list* temp;
 	
-	temp = head;
-    while (temp != NULL)
-	{
-        printf("%d ", temp->data);
-        temp = temp->next;
-    }
-    printf("\n");
-}
+// 	temp = head;
+// 	while (temp != NULL)
+// 	{
+// 		printf("%d ", temp->data);
+// 		temp = temp->next;
+// 	}
+// 	printf("\n");
+// }
 
 t_list *newnode(int data)
 {
@@ -67,7 +67,7 @@ t_list *newnode(int data)
 	if (!newNode)
 		exit (1);
 	newNode->data = data;
-    newNode->next = NULL;
+	newNode->next = NULL;
 	return (newNode);
 }
 
@@ -107,5 +107,5 @@ void	store_and_check(t_info **info,t_list **stack_a, int argc, char **argv)
 		(*info)->arr[i] = ft_atoi(tab[i]);
 		add_node(stack_a,(*info)->arr[i]);
 	}
-	printList(*stack_a);
+	// printList(*stack_a);
 }
