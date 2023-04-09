@@ -6,7 +6,7 @@
 /*   By: mhirch <mhirch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 12:32:11 by mhirch            #+#    #+#             */
-/*   Updated: 2023/04/08 17:43:53 by mhirch           ###   ########.fr       */
+/*   Updated: 2023/04/09 18:04:25 by mhirch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,36 +118,91 @@ void printList(t_list *head)
 // 		stack = stack->next;
 // 	stack->data = temp;
 // }
+int	find_position(t_list *a, int small_num)
+{
+	int position;
+
+	position = 1;
+	while (a->next)
+	{
+		if (a->data == small_num)
+			break ;
+		position++;
+		a = a->next;
+	}
+	printf("%d \n", position);
+	return (position);
+}
+int	find_smallest(t_list *a)
+{
+	int small_num;
+
+	small_num = INT_MAX;
+	while (a->next)
+	{
+		if (a->data < small_num)
+			small_num = a->data;
+		a = a->next;
+	}
+	if (a->data < small_num)
+			small_num = a->data;
+	return small_num;
+}
+int is_small_in_top(t_list *a)
+{
+	int data;
+	
+	data = a->data;
+	printf("--%d--", a->next->data);
+	while (a->next)
+	{
+		if (a->data > a->next->data)
+			return (0);
+		a = a->next;
+	}
+	return 1;
+}
 void	sort(t_info **info, t_list **a)
 {
 	t_list *b;
 	t_lis_info *lis;
+	int small_num;
+	int j;
 	
 	b = NULL;
+	j = (*info)->capacity;
+	small_num = find_smallest(*a);
+	printf("-%d-", is_small_in_top(*a));
+	// while (j-- > 0)
+	// {
+	// 	if (find_position(*a, small_num) < ((*info)->capacity / 2))
+	// 	{
+			// while (!is_small_in_top(*a))
+	// 			make_operation("ra", a, &b);
+	// 	}
+	// 	if (find_position(*a, small_num) > ((*info)->capacity / 2))
+	// 	{
+	// 		while (is_small_in_top(*a) == 0)
+	// 			make_operation("rra", a, &b);
+	// 	}
+	// 	// if (find_position(*a, small_num) > ((*info)->capacity / 2))
+	// 	// 	make_operation("rra", a, &b);
+	// }
 	lis = initialize_lis((*info)->capacity);
 	get_index(lis, *info);
 	get_lis(lis, *info);
-	// for (int i = 0; i < lis->length_lis; i++) {
-	// 	printf("%d | ", lis->lis[i]);
-	// }
+	// // for (int i = 0; i < lis->length_lis; i++) {
+	// // 	printf("%d | ", lis->lis[i]);
+	// // }
 	while ((*info)->capacity-- > 0)
 	{
 		if (is_lis_in_stack(*a, lis) == 1)
-		{
 			make_operation("ra", a, &b);
-			printf("A: ");
-			printList(*a);
-		}
 		if (is_lis_in_stack(*a, lis) == 0)
-		{
 			make_operation("pb", a, &b);
-			printf("A: ");
-			printList(*a);
-			printf("B: ");
-			printList(b);
-		}
 	}
-	// printList(*a);
+	printList(*a);
+	printList(b);
 }
 int is_lis_in_stack(t_list *a, t_lis_info *lis)
 {
@@ -175,19 +230,6 @@ void	main_sort(t_info **info, t_list **a)
 	else
 		sort(info, a);
 }
-// void	main_sort(t_info **a)
-// {
-// 	if (is_sorted(*a) == 1)
-// 	{
-// 		printf("sorted");
-// 		return ;
-// 	}
-// 	if ((*a)->capacity <= 5)
-// 		bubblesort((*a)->arr, (*a)->capacity);
-// 	else
-// 		sort(&*a);
-// }
-
 
 void	swap(int *a, int *b)
 {

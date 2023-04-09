@@ -64,8 +64,8 @@ void	bubblesort(int *arr, int n);
 
 /*operations*/
 void    make_operation(char *x, t_list **a, t_list **b);
-void	rotate(t_list *stack);
-
+void	rotate(t_list **stack);
+void	reverse_rotate(t_list **stack);
 
 
 #endif
