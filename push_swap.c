@@ -6,7 +6,7 @@
 /*   By: mhirch <mhirch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 12:32:11 by mhirch            #+#    #+#             */
-/*   Updated: 2023/04/09 18:04:25 by mhirch           ###   ########.fr       */
+/*   Updated: 2023/04/11 18:10:06 by mhirch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,33 +104,19 @@ void printList(t_list *head)
 	}
 	printf("\n");
 }
-// void	rotate(t_list *stack)
-// {
-// 	t_list *ptr;
-// 	int temp;
-	
-// 	ptr = stack;
-// 	while(ptr->next != NULL)
-// 		ptr = ptr->next;
-// 	temp = stack->data ;
-// 	stack->data = ptr->data;
-// 	while (stack->next)
-// 		stack = stack->next;
-// 	stack->data = temp;
-// }
-int	find_position(t_list *a, int small_num)
+
+int	find_position(t_list *stack, int number)
 {
 	int position;
 
 	position = 1;
-	while (a->next)
+	while (stack->next)
 	{
-		if (a->data == small_num)
+		if (stack->data == number)
 			break ;
 		position++;
-		a = a->next;
+		stack = stack->next;
 	}
-	printf("%d \n", position);
 	return (position);
 }
 int	find_smallest(t_list *a)
@@ -148,61 +134,186 @@ int	find_smallest(t_list *a)
 			small_num = a->data;
 	return small_num;
 }
-int is_small_in_top(t_list *a)
+int	small_in_top(t_list **a, t_list **b, int capacity, int small_num)
 {
-	int data;
-	
-	data = a->data;
-	printf("--%d--", a->next->data);
-	while (a->next)
+	int position;
+
+	position = find_position(*a, small_num);
+	while (capacity-- > 0)
 	{
-		if (a->data > a->next->data)
-			return (0);
+		if (find_position(*a, small_num) != 1)
+		{
+			if (find_position(*a, small_num) <= (capacity / 2))
+			{
+				make_operation("ra", a, b);
+			}
+			else if (find_position(*a, small_num) > (capacity / 2))
+			{
+				make_operation("rra", a, b);
+			}
+		}
+		else 
+			break ;
+	}
+	return (position);
+}
+void	update_arr(t_info **info, t_list *a)
+{
+	int	i;
+
+	i = 0;
+	while (a)
+	{
+		(*info)->arr[i++] = a->data;
 		a = a->next;
 	}
-	return 1;
+}
+void	out_of_lis_in_b(t_list **a, t_list **b, t_lis_info *lis, int capacity)
+{
+	while (capacity-- > 0)
+	{
+		if (is_lis_in_stack(*a, lis) == 1)
+			make_operation("ra", a, b);
+		if (is_lis_in_stack(*a, lis) == 0)
+			make_operation("pb", a, b);
+	}
+}
+int length(t_list *stack)
+{
+	int i;
+
+	i = 0;
+	while(stack)
+	{
+		stack = stack->next;
+		i++;
+	}
+	return (i);
+}
+int moves_stack_a(t_list *a, int data)
+{
+	int moves;
+
+	moves = 0;
+	return (moves);
+}
+int	moves_stack_b(t_list *b, int data, int position)
+{
+	int	moves;
+	t_list *temp;
+	int j;
+	
+	moves = 0;
+	temp = b;
+	j = length(b) / 2;
+	if (position == 1)
+		moves = 0;
+	printf("hh%dhh", position);
+	if (position <= j && position != 1)
+	{
+		// while (b && temp->data != data)
+		// {
+		// 	b = b->next;
+		// 	moves++;
+		// }
+		while(b)
+			b = b->next;
+		while(data != temp->data)
+			temp = temp->next;
+		while (temp->data != b->data)
+		{
+			temp = temp->next;
+			moves++;
+		}
+	}
+	// if (position <= length(b) / 2 && position != 0)
+	// {
+		
+	// }
+	printf("*-%d*-\n", moves);
+	return (moves);
+}
+int	*what_is_best_moves(t_list *a, t_list *b, int position, int data)
+{
+	int moves[2];
+	int i;
+	t_list *temp_b;
+
+	i = 0;
+	temp_b = b;
+	// moves[0] = moves_stack_a(a, data);
+	moves[1] = moves_stack_b(b, data, position);
+	moves[0] = 0;
+	
+	// while (temp_b)
+	// {
+	// 	if (position <= length(temp_b) / 2 && position != 0)
+			
+	// }
+	// while (a)
+	// {
+	// 	if ()
+	// }
+	return (moves);
+}
+void	magic(t_list **b,t_list **a)
+{
+	t_list *temp_b;
+	int position;
+	int **moves;
+	int i;
+	
+	moves = malloc(sizeof(int *) * length(*b));
+	// while (*b)
+	// {
+		temp_b = *b;
+		while(temp_b)
+		{
+			position = find_position(*b, temp_b->data);
+			moves[i] = what_is_best_moves(*a, *b, position, temp_b->data);
+			i++;
+			temp_b = temp_b->next;
+		}
+		// for (int i = 0; i < length(*b); i++) {
+        // 	for (int j = 0; j < 2; j++) {
+        //     	printf("%d ", moves[i][j]);
+        // }
+        // printf("\n");
+    // }
+		// printf("****%d\n", temp_b->next->next->data);
+		// int move = calculatemoves(*a, temp_b->next->next->data);
+		// printf("------%d\n", move);
+		
+	// }
 }
 void	sort(t_info **info, t_list **a)
 {
 	t_list *b;
 	t_lis_info *lis;
 	int small_num;
-	int j;
+	int position;
 	
 	b = NULL;
-	j = (*info)->capacity;
 	small_num = find_smallest(*a);
-	printf("-%d-", is_small_in_top(*a));
-	// while (j-- > 0)
-	// {
-	// 	if (find_position(*a, small_num) < ((*info)->capacity / 2))
-	// 	{
-			// while (!is_small_in_top(*a))
-	// 			make_operation("ra", a, &b);
-	// 	}
-	// 	if (find_position(*a, small_num) > ((*info)->capacity / 2))
-	// 	{
-	// 		while (is_small_in_top(*a) == 0)
-	// 			make_operation("rra", a, &b);
-	// 	}
-	// 	// if (find_position(*a, small_num) > ((*info)->capacity / 2))
-	// 	// 	make_operation("rra", a, &b);
-	// }
+	position = small_in_top(a, &b, (*info)->capacity, small_num);
+	update_arr(info, *a);
+	for (int i = 0; i < (*info)->capacity; i++) {
+		printf("%d | ", (*info)->arr[i]);
+	}
+	printf("\n");
 	lis = initialize_lis((*info)->capacity);
 	get_index(lis, *info);
 	get_lis(lis, *info);
-	// // for (int i = 0; i < lis->length_lis; i++) {
-	// // 	printf("%d | ", lis->lis[i]);
-	// // }
-	while ((*info)->capacity-- > 0)
-	{
-		if (is_lis_in_stack(*a, lis) == 1)
-			make_operation("ra", a, &b);
-		if (is_lis_in_stack(*a, lis) == 0)
-			make_operation("pb", a, &b);
+	for (int i = 0; i < lis->length_lis; i++) {
+		printf("%d | ", lis->lis[i]);
 	}
+	printf("\n");
+	out_of_lis_in_b(a, &b, lis, (*info)->capacity);
+	magic(&b, a);
+	/*-------------*/
 	printList(*a);
 	printList(b);
+	/*-------------*/
 }
 int is_lis_in_stack(t_list *a, t_lis_info *lis)
 {

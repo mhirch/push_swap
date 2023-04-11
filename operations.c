@@ -6,7 +6,7 @@
 /*   By: mhirch <mhirch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 14:44:29 by mhirch            #+#    #+#             */
-/*   Updated: 2023/04/09 16:51:37 by mhirch           ###   ########.fr       */
+/*   Updated: 2023/04/10 15:14:48 by mhirch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,9 @@ void	  make_operation(char *x, t_list **a, t_list **b)
 		push_a(a, b);
 	else if (ft_strcmp(x, "rra") == 0)
 		reverse_rotate(a);
-	else if (ft_strcmp(x, "rra") == 0)
+	else if (ft_strcmp(x, "rrb") == 0)
+		reverse_rotate(b);
+	else if (ft_strcmp(x, "rrr") == 0)
 	{
 		reverse_rotate(a);
 		reverse_rotate(b);
