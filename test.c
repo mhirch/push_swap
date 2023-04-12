@@ -1,132 +1,51 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include "push_swap.h"
+// int calculate(int a, int b)
+// {
+//   int result;
 
-#include <stdio.h>
-#include <stdlib.h>
+//   // Determine the absolute values of a and b
+//   int absA = ftabs(a);
+//   int absB = ftabs(b);
 
-// Node structure for linked list
-// t_list {
-//     int data;
-//     t_list* next;
-// };
+//   // Find the maximum absolute value between a and b
+//   int maxAbs = (absA > absB) ? absA : absB;
 
-// // Function to create a new node
-// t_list* createNode(int data) {
-//     t_list* newNode = (t_list*)malloc(sizeof(t_list));
-//     if (newNode == NULL) {
-//         printf("Memory allocation failed.\n");
-//         exit(1);
-//     }
-//     newNode->data = data;
-//     newNode->next = NULL;
-//     return newNode;
+//   // Calculate the result based on the maximum absolute value
+//     if (a < 0 && b < 0) 
+//         result = maxAbs;
+//     else if (a < 0 || b < 0) 
+//         result = maxAbs + 1;
+//     else 
+//         result = maxAbs + 2;
+  
+//   return result;
 // }
-
-// // Function to push a node to the front of the linked list
-// void push(t_list** head, int data) {
-//     t_list* newNode = createNode(data);
-//     newNode->next = *head;
-//     *head = newNode;
-// }
-
-// Function to calculate the number of moves to put an element on the top of stack B
-int movesToTop(t_list* top, int data) {
-    int moves = 0;
-    while (top != NULL && top->data != data) {
-        top = top->next;
-        moves++;
-    }
-    return moves;
+int ftabs(int x)
+{
+    if (x < 0) 
+        return -x;
+    else
+        return x;
 }
+int calculate(int a, int b)
+{
+    int result;
+	int abs_a;
+	int abs_b;
 
-// Function to calculate the number of moves to put an element in its correct position in stack A
-int movesToCorrectPosition(t_list* top, int data) {
-    int moves = 0;
-    while (top != NULL && top->data < data) {
-        top = top->next;
-        moves++;
-    }
-    return moves;
+	abs_a = ft_abs(a);
+	abs_b = ft_abs(b);
+    if (a == b)
+        result = abs_a;
+    else if ((a < 0 & b < 0) || (a > 0 & b > 0))
+        result = (abs_a > abs_b) ? abs_a : abs_b;
+	else if ((a < 0 && b >= 0))
+		result = abs_a + abs_b;
+	else if ((b < 0 && a >= 0))
+		result = abs_a + abs_b;
+	return result;
 }
-
-// Function to determine the best element in stack B to push to its correct position in stack A
-int determineBestElement(t_list* stackA, t_list* stackB) {
-    int bestElement = stackB->data; // Initialize with the top element of stack B
-    int minMoves = movesToTop(stackA, bestElement) + movesToCorrectPosition(stackA, bestElement); // Initialize with moves for the top element
-
-    t_list* top = stackB;
-    t_list* bottom = stackB;
-    int size = 0;
-    // Get the size of stack B
-    while (top != NULL) {
-        size++;
-        top = top->next;
-    }
-
-    top = stackB;
-    bottom = stackB;
-    int halfSize = size / 2;
-    int movesTop = 0;
-    int movesBottom = 0;
-
-    // Iterate from top and bottom simultaneously, using reverse_rotate or rotate to calculate moves
-    while (halfSize > 0) {
-        movesTop += 1;
-        top = top->next;
-        halfSize--;
-
-        if (halfSize > 0) {
-            movesBottom += 1;
-            bottom = bottom->next;
-            halfSize--;
-        }
-    }
-
-    // Determine the best element based on the minimum number of moves
-    if (movesTop < movesBottom && movesTop < minMoves) {
-        bestElement = top->data;
-        minMoves = movesTop;
-    } else if (movesBottom <= movesTop && movesBottom < minMoves) {
-        bestElement = bottom->data;
-        minMoves = movesBottom;
-    }
-
-    return bestElement;
-}
-
-int main() {
-    // Example usage
-    // Create stack A
-    t_list* stackA = NULL;
-    push(&stackA, 55);
-    push(&stackA, 0);
-    push(&stackA, -8);
-    push(&stackA, 7);
-    push(&stackA, 6);
-    push(&stackA, 5);
-    push(&stackA, 4);
-    push(&stackaA, 3);
-
-
-
-
-#include <stdio.h>
-
+# include <stdio.h>
 int main()
 {
-    int arr[3][4] = { {1, 2, 3, 4},
-                      {5, 6, 7, 8},
-                      {9, 10, 11, 12} }; // Example 2D array
-
-    // Printing the 2D array using nested loops
-    printf("Printing 2D array arr[][]:\n");
-    for (int i = 0; i < 3; i++) {
-        for (int j = 0; j < 4; j++) {
-            printf("%d ", arr[i][j]);
-        }
-        printf("\n");
-    }
-
-    return 0;
+    printf("%d\n", calculate(0, -1));
 }

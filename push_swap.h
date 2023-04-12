@@ -57,10 +57,16 @@ void	store_and_check(t_info **info, t_list **stack_a,int argc, char **argv);
 t_info *initialize_info(int a);
 int is_lis_in_stack(t_list *a, t_lis_info *lis);
 t_list *newnode(int data);
+int	biggest_one(t_list *a);
+int	best_one(int **moves, int i);
 
 /*sort*/
 void	sort(t_info **info, t_list **a);
 void	bubblesort(int *arr, int n);
+
+/*fake operations*/
+void fake_rotate(t_list *stack);
+void fake_reverse_rotate(t_list *stack);
 
 /*operations*/
 void    make_operation(char *x, t_list **a, t_list **b);

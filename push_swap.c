@@ -6,7 +6,7 @@
 /*   By: mhirch <mhirch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 12:32:11 by mhirch            #+#    #+#             */
-/*   Updated: 2023/04/11 18:10:06 by mhirch           ###   ########.fr       */
+/*   Updated: 2023/04/12 17:23:39 by mhirch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ int	find_position(t_list *stack, int number)
 {
 	int position;
 
-	position = 1;
+	position = 0;
 	while (stack->next)
 	{
 		if (stack->data == number)
@@ -119,7 +119,7 @@ int	find_position(t_list *stack, int number)
 	}
 	return (position);
 }
-int	find_smallest(t_list *a)
+int	smallest_in_stack(t_list *a)
 {
 	int small_num;
 
@@ -132,7 +132,7 @@ int	find_smallest(t_list *a)
 	}
 	if (a->data < small_num)
 			small_num = a->data;
-	return small_num;
+	return (small_num);
 }
 int	small_in_top(t_list **a, t_list **b, int capacity, int small_num)
 {
@@ -141,7 +141,7 @@ int	small_in_top(t_list **a, t_list **b, int capacity, int small_num)
 	position = find_position(*a, small_num);
 	while (capacity-- > 0)
 	{
-		if (find_position(*a, small_num) != 1)
+		if (find_position(*a, small_num) != 0)
 		{
 			if (find_position(*a, small_num) <= (capacity / 2))
 			{
@@ -190,101 +190,195 @@ int length(t_list *stack)
 	}
 	return (i);
 }
-int moves_stack_a(t_list *a, int data)
+int	data_is_biggest(t_list *a, int data)
 {
+	while (a)
+	{
+		if (a->data > data)
+			return (0);
+		a = a->next;
+	}
+	return (1);
+}
+int bigger_than_data(t_list *a, int data, int i)
+{
+	int bigger[i];
+	int j;
+	int one;
+	
+	j = 0;
+	while (a)
+	{
+		if (a->data > data)
+			bigger[j++] = a->data;
+		a = a->next;
+	}
+	j = 0;
+	one = bigger[j++];
+	while (j < i)
+	{
+		if (one > bigger[j])
+			one = bigger[j];
+		j++;
+	}
+	return (one);
+}
+int	moves_stack_a(t_list *a, int data)
+{
+	t_list *temp;
 	int moves;
+	int i;
+	int to_be_replaced;
+	int position;
 
+	i = 0;
+	temp = a;
+	if (data_is_biggest(a, data) == 0)
+	{
+		while (temp)
+		{
+			if (temp->data > data)
+				i++;
+			temp = temp->next;
+		}
+		to_be_replaced = bigger_than_data(a, data, i);
+	}
+	else 
+		to_be_replaced = biggest_one(a);
+	position = find_position(a, to_be_replaced);
 	moves = 0;
+	i = length(a);
+	if (position < i / 2)
+		moves = position;
+	if (position >= i / 2)
+		moves = (i - position) * -1;
 	return (moves);
 }
-int	moves_stack_b(t_list *b, int data, int position)
+int	biggest_one(t_list *a)
+{
+	int bigg_num;
+
+	bigg_num = INT_MIN;
+	while (a->next)
+	{
+		if (a->data > bigg_num)
+			bigg_num = a->data;
+		a = a->next;
+	}
+	if (a->data > bigg_num)
+			bigg_num = a->data;
+	return (bigg_num);
+}
+int	moves_stack_b(t_list *b, int position)
 {
 	int	moves;
-	t_list *temp;
 	int j;
 	
 	moves = 0;
-	temp = b;
-	j = length(b) / 2;
-	if (position == 1)
-		moves = 0;
-	printf("hh%dhh", position);
-	if (position <= j && position != 1)
-	{
-		// while (b && temp->data != data)
-		// {
-		// 	b = b->next;
-		// 	moves++;
-		// }
-		while(b)
-			b = b->next;
-		while(data != temp->data)
-			temp = temp->next;
-		while (temp->data != b->data)
-		{
-			temp = temp->next;
-			moves++;
-		}
-	}
-	// if (position <= length(b) / 2 && position != 0)
-	// {
-		
-	// }
-	printf("*-%d*-\n", moves);
+	j = length(b);
+	if (position < j / 2)
+		moves = position;
+	if (position >= j / 2)
+		moves = (j - position) * -1;
 	return (moves);
 }
-int	*what_is_best_moves(t_list *a, t_list *b, int position, int data)
+int	*calcul_moves(t_list *a, t_list *b, int data)
 {
-	int moves[2];
-	int i;
 	t_list *temp_b;
+	int *moves;
+	int position;
+	int i,j;
 
 	i = 0;
+	j = 0;
+	moves = malloc(sizeof(int) * 2);
 	temp_b = b;
-	// moves[0] = moves_stack_a(a, data);
-	moves[1] = moves_stack_b(b, data, position);
-	moves[0] = 0;
+	position = find_position(b, data);
+	moves[0] = moves_stack_a(a, data);
+		printf("moves in A %d\n", moves[0]);
+	moves[1] = moves_stack_b(b, position);
+		printf("moves in B %d\n", moves[1]);
 	
-	// while (temp_b)
-	// {
-	// 	if (position <= length(temp_b) / 2 && position != 0)
-			
-	// }
-	// while (a)
-	// {
-	// 	if ()
-	// }
 	return (moves);
+}
+int ft_abs(int x)
+{
+    if (x < 0) 
+        return -x;
+    else
+        return x;
+}
+int calculate(int a, int b)
+{
+    int result;
+	int abs_a;
+	int abs_b;
+
+	abs_a = ft_abs(a);
+	abs_b = ft_abs(b);
+    if (a == b)
+        result = abs_a;
+    else if ((a < 0 & b < 0) || (a > 0 & b > 0))
+        result = (abs_a > abs_b) ? abs_a : abs_b;
+	else if ((a < 0 && b >= 0))
+		result = abs_a + abs_b;
+	else if ((b < 0 && a >= 0))
+		result = abs_a + abs_b;
+	return result;
 }
 void	magic(t_list **b,t_list **a)
 {
 	t_list *temp_b;
-	int position;
 	int **moves;
 	int i;
+	int index;
+	int j = 0;
 	
 	moves = malloc(sizeof(int *) * length(*b));
 	// while (*b)
 	// {
+		i = 0;
 		temp_b = *b;
 		while(temp_b)
 		{
-			position = find_position(*b, temp_b->data);
-			moves[i] = what_is_best_moves(*a, *b, position, temp_b->data);
-			i++;
+			moves[i++] = calcul_moves(*a, *b, temp_b->data);
 			temp_b = temp_b->next;
 		}
-		// for (int i = 0; i < length(*b); i++) {
-        // 	for (int j = 0; j < 2; j++) {
-        //     	printf("%d ", moves[i][j]);
-        // }
-        // printf("\n");
-    // }
-		// printf("****%d\n", temp_b->next->next->data);
-		// int move = calculatemoves(*a, temp_b->next->next->data);
-		// printf("------%d\n", move);
+		index = best_one(moves, length(*b));
+		
+		
 		
 	// }
+}
+int	best_one(int **moves, int i)
+{
+	int j;
+	int *index;
+	int one;
+	int check;
+
+	j = 0;
+	index = malloc(sizeof(int) * i);
+	while( j < i)
+	{
+		index[j] = calculate(moves[j][0], moves[j][1]);
+		j++;
+	}
+	j = 0;
+	check = index[j];
+	one = j;
+	j++;
+	while (j < i)
+	{
+		if ( check > index[j])
+		{
+			check = index[j];
+			one = j;
+		}
+		j++;
+	}
+	return (one);
+		
 }
 void	sort(t_info **info, t_list **a)
 {
@@ -294,7 +388,7 @@ void	sort(t_info **info, t_list **a)
 	int position;
 	
 	b = NULL;
-	small_num = find_smallest(*a);
+	small_num = smallest_in_stack(*a);
 	position = small_in_top(a, &b, (*info)->capacity, small_num);
 	update_arr(info, *a);
 	for (int i = 0; i < (*info)->capacity; i++) {
