@@ -1,16 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_2.c                                          :+:      :+:    :+:   */
+/*   store_check.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mhirch <mhirch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 12:37:35 by mhirch            #+#    #+#             */
-/*   Updated: 2023/04/08 15:04:50 by mhirch           ###   ########.fr       */
+/*   Updated: 2023/04/14 16:52:18 by mhirch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+t_list *newnode(int data)
+{
+	t_list *newNode ;
+	newNode = (t_list*)malloc(sizeof(t_list));
+	if (!newNode)
+		exit (1);
+	newNode->data = data;
+	newNode->next = NULL;
+	return (newNode);
+}
+
+void add_node(t_list **head, int data) 
+{
+	t_list *temp;
+    if (*head == NULL) 
+        *head = newnode(data);
+    else
+    {
+        temp = *head;
+        while (temp->next != NULL)
+            temp = temp->next;
+        temp->next = newnode(data);
+    }
+}
 
 t_info *initialize_info(int a)
 {
@@ -47,43 +72,7 @@ void	check(char **tab)
 		i++;
 	}
 }
-// void printList(t_list *head)
-// {
-// 	t_list* temp;
-	
-// 	temp = head;
-// 	while (temp != NULL)
-// 	{
-// 		printf("%d ", temp->data);
-// 		temp = temp->next;
-// 	}
-// 	printf("\n");
-// }
 
-t_list *newnode(int data)
-{
-	t_list *newNode ;
-	newNode = (t_list*)malloc(sizeof(t_list));
-	if (!newNode)
-		exit (1);
-	newNode->data = data;
-	newNode->next = NULL;
-	return (newNode);
-}
-
-void add_node(t_list **head, int data) 
-{
-	t_list *temp;
-    if (*head == NULL) 
-        *head = newnode(data);
-    else
-    {
-        temp = *head;
-        while (temp->next != NULL)
-            temp = temp->next;
-        temp->next = newnode(data);
-    }
-}
 void	store_and_check(t_info **info,t_list **stack_a, int argc, char **argv)
 {
 	int		i;
@@ -107,5 +96,4 @@ void	store_and_check(t_info **info,t_list **stack_a, int argc, char **argv)
 		(*info)->arr[i] = ft_atoi(tab[i]);
 		add_node(stack_a,(*info)->arr[i]);
 	}
-	// printList(*stack_a);
 }

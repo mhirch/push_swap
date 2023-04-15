@@ -6,28 +6,28 @@
 /*   By: mhirch <mhirch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 12:32:11 by mhirch            #+#    #+#             */
-/*   Updated: 2023/04/12 17:23:39 by mhirch           ###   ########.fr       */
+/*   Updated: 2023/04/15 17:48:08 by mhirch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int is_sorted(t_info *a)
-{
-	int i;
+// int is_sorted(t_info *a)
+// {
+// 	int i;
 
-	i = 0;
-	while (i < a->capacity - 1)
-	{
-		if (a->arr[i] < a->arr[i + 1])
-			i++;
-		else
-		{
-			return 0;
-		}
-	}
-	return 1;
-}
+// 	i = 0;
+// 	while (i < a->capacity - 1)
+// 	{
+// 		if (a->arr[i] < a->arr[i + 1])
+// 			i++;
+// 		else
+// 		{
+// 			return 0;
+// 		}
+// 	}
+// 	return 1;
+// }
 
 void get_index(t_lis_info *lis, t_info *a)
 {
@@ -200,6 +200,21 @@ int	data_is_biggest(t_list *a, int data)
 	}
 	return (1);
 }
+int is_sorted(t_list *a)
+{
+	int i;
+
+	i = length(a) - 1;
+	while (i)
+	{
+		if (a->data < a->next->data)
+			i--;
+		else
+			return (0);
+		a = a->next;
+	}
+	return (1);
+}
 int bigger_than_data(t_list *a, int data, int i)
 {
 	int bigger[i];
@@ -244,7 +259,7 @@ int	moves_stack_a(t_list *a, int data)
 		to_be_replaced = bigger_than_data(a, data, i);
 	}
 	else 
-		to_be_replaced = biggest_one(a);
+		to_be_replaced = smallest_in_stack(a);
 	position = find_position(a, to_be_replaced);
 	moves = 0;
 	i = length(a);
@@ -295,9 +310,9 @@ int	*calcul_moves(t_list *a, t_list *b, int data)
 	temp_b = b;
 	position = find_position(b, data);
 	moves[0] = moves_stack_a(a, data);
-		printf("moves in A %d\n", moves[0]);
+		// printf("moves in A %d\n", moves[0]);
 	moves[1] = moves_stack_b(b, position);
-		printf("moves in B %d\n", moves[1]);
+		// printf("moves in B %d\n", moves[1]);
 	
 	return (moves);
 }
@@ -308,6 +323,7 @@ int ft_abs(int x)
     else
         return x;
 }
+
 int calculate(int a, int b)
 {
     int result;
@@ -319,10 +335,10 @@ int calculate(int a, int b)
     if (a == b)
         result = abs_a;
     else if ((a < 0 & b < 0) || (a > 0 & b > 0))
+	{
         result = (abs_a > abs_b) ? abs_a : abs_b;
-	else if ((a < 0 && b >= 0))
-		result = abs_a + abs_b;
-	else if ((b < 0 && a >= 0))
+	}
+	else
 		result = abs_a + abs_b;
 	return result;
 }
@@ -332,11 +348,13 @@ void	magic(t_list **b,t_list **a)
 	int **moves;
 	int i;
 	int index;
-	int j = 0;
+	int position = 0;
 	
 	moves = malloc(sizeof(int *) * length(*b));
-	// while (*b)
-	// {
+	// printList(*a);
+	// printList(*b);
+	while (*b)
+	{
 		i = 0;
 		temp_b = *b;
 		while(temp_b)
@@ -345,10 +363,133 @@ void	magic(t_list **b,t_list **a)
 			temp_b = temp_b->next;
 		}
 		index = best_one(moves, length(*b));
-		
-		
-		
-	// }
+		better_call_saul(a, b, moves[index]);
+		/*-------------*/
+		// puts("Stack A :");
+		// printList(*a);
+		// puts("Stack B :");
+		// printList(*b);
+		/*-------------*/
+	}
+	position = find_position(*a, smallest_in_stack(*a));
+	while (position != 1)
+	{
+		position = find_position(*a, smallest_in_stack(*a));
+		// if ( position >= length(*a))
+		// 	make_operation("rra", a, b);
+		// if ( position < length(*a))
+		make_operation("ra", a, b);
+	}
+	// printList(*a);
+}
+// int	small_one(int a, int b)
+// {
+// 	int result;
+
+// 	if ( ft_abs(a) < ft_abs(b))
+// 		result = ft_abs(a);
+// 	else
+// 		result = ft_abs(b);
+// 	return (result);
+// }
+int	small_one(int a, int b)
+{
+	int r;
+
+	if ( ft_abs(a) < ft_abs(b))
+		r = 1;
+	else if (ft_abs(a) > ft_abs(b))
+		r = 2;
+	else
+		r = 0;
+	return (r);
+}
+void	better_call_saul(t_list **a, t_list **b,int *moves)
+{
+	int i;
+
+	i = 0;
+	if (moves[0] > 0 && moves[1] > 0)
+	{
+		if (small_one(moves[0], moves[1]) == 1)
+		{
+			moves[1] = moves[1] - moves[0];
+			while (moves[0] > 0)
+			{
+				make_operation("rr", a, b);
+				moves[0]--;
+			}
+		}
+		else if (small_one(moves[0], moves[1]) == 2)
+		{
+			moves[0] = moves[0] - moves[1];
+			while (moves[1] > 0)
+			{
+				make_operation("rr", a, b);
+				moves[1]--;
+			}
+		}
+		else if (small_one(moves[0], moves[1]) == 0)
+		{
+			while (moves[0] > 0)
+			{
+				make_operation("rr", a, b);
+				moves[0]--;
+				moves[1]--;
+			}
+		}
+	}
+	else if (moves[0] < 0 && moves[1] < 0)
+	{
+		if (small_one(moves[0], moves[1]) == 1)
+		{
+			moves[1] = moves[1] - moves[0];
+			while (moves[0] < 0)
+			{
+				make_operation("rrr", a, b);
+				moves[0]++;
+			}
+		}
+		else if (small_one(moves[0], moves[1]) == 2)
+		{
+			moves[0] = moves[0] - moves[1];
+			while (moves[1] < 0)
+			{
+				make_operation("rrr", a, b);
+				moves[1]++;
+			}
+		}
+		else if (small_one(moves[0], moves[1]) == 0)
+		{
+			while (moves[0] < 0)
+			{
+				make_operation("rrr", a, b);
+				moves[0]++;
+				moves[1]++;
+			}
+		}
+	}
+	while (moves[0] > 0)
+	{
+		make_operation("ra", a, b);
+		moves[0]--;
+	}
+	while (moves[0] < 0)
+	{
+		make_operation("rra", a, b);
+		moves[0]++;
+	}
+	while (moves[1] > 0)
+	{
+		make_operation("rb", a, b);
+		moves[1]--;
+	}
+	while (moves[1] < 0)
+	{
+		make_operation("rrb", a, b);
+		moves[1]++;
+	}
+	make_operation("pa", a, b);
 }
 int	best_one(int **moves, int i)
 {
@@ -362,6 +503,7 @@ int	best_one(int **moves, int i)
 	while( j < i)
 	{
 		index[j] = calculate(moves[j][0], moves[j][1]);
+		// printf("%d----\n", index[j]);
 		j++;
 	}
 	j = 0;
@@ -377,36 +519,36 @@ int	best_one(int **moves, int i)
 		}
 		j++;
 	}
+	// printf("- %d\n", one);
 	return (one);
-		
 }
-void	sort(t_info **info, t_list **a)
+void	sort(t_info **info, t_list **a, t_list **b)
 {
-	t_list *b;
+	// t_list *b;
 	t_lis_info *lis;
 	int small_num;
 	int position;
 	
-	b = NULL;
+	// b = NULL;
 	small_num = smallest_in_stack(*a);
-	position = small_in_top(a, &b, (*info)->capacity, small_num);
-	update_arr(info, *a);
-	for (int i = 0; i < (*info)->capacity; i++) {
-		printf("%d | ", (*info)->arr[i]);
-	}
-	printf("\n");
+	position = small_in_top(a, b, (*info)->capacity, small_num);
+	// update_arr(info, *a);
+	// for (int i = 0; i < (*info)->capacity; i++) {
+	// 	printf("%d | ", (*info)->arr[i]);
+	// }
+	// printf("\n");
 	lis = initialize_lis((*info)->capacity);
 	get_index(lis, *info);
 	get_lis(lis, *info);
-	for (int i = 0; i < lis->length_lis; i++) {
-		printf("%d | ", lis->lis[i]);
-	}
-	printf("\n");
-	out_of_lis_in_b(a, &b, lis, (*info)->capacity);
-	magic(&b, a);
+	// for (int i = 0; i < lis->length_lis; i++) {
+	// 	printf("%d | ", lis->lis[i]);
+	// }
+	// printf("\n");
+	out_of_lis_in_b(a, b, lis, (*info)->capacity);
+	magic(b, a);
 	/*-------------*/
-	printList(*a);
-	printList(b);
+	// printList(*a);
+	// printList(b);
 	/*-------------*/
 }
 int is_lis_in_stack(t_list *a, t_lis_info *lis)
@@ -425,44 +567,79 @@ int is_lis_in_stack(t_list *a, t_lis_info *lis)
 
 void	main_sort(t_info **info, t_list **a)
 {
-	if (is_sorted(*info) == 1)
+	t_list *b;
+
+	b = NULL;
+	// make_operation("pb", a, &b);
+	// make_operation("pb", a, &b);
+	// make_operation("pa", a, &b);
+	if (is_sorted(*a) == 1)
 	{
 		printf("sorted");
 		return ;
 	}
-	if ((*info)->capacity <= 5)
-		bubblesort((*info)->arr, (*info)->capacity);
+	
+	else if (length(*a) <= 5)
+		simple_sort(a, &b);
 	else
-		sort(info, a);
+		sort(info, a, &b);
+	// printList(*a);
+	// printList(b);
 }
-
-void	swap(int *a, int *b)
+void	sort_three(t_list **a, t_list **b)
 {
-	int tmp;
-
-	tmp = *a;
-	*a = *b;
-	*b = tmp;
-	printf("sa\n");
-}
-void bubblesort(int *arr, int n)
-{
-	int i = 0;
-	int j ;
-	while(i < n-1)
+	int	z;
+	int	y;
+	int	x;
+	
+	z = (*a)->data;
+	y = (*a)->next->data;
+	x = (*a)->next->next->data;
+	if (z > y && y > x && x < z)
 	{
-	  j = 0;
-		while(j < n - i - 1)
-		{
-			if (arr[j] > arr[j + 1])
-			{
-				swap(&arr[j], &arr[j+1]);
-			}
-			j++;
-		}
-		i++;
+		make_operation("sa", a, b);
+		make_operation("rra", a, b);
 	}
+	else if (z > y && y < x && x > z)
+		make_operation("sa", a, b);
+	else if (z < y && y > x && x < z)
+		make_operation("ra", a, b);
+	else if (z < y && y > x && x > z)
+		make_operation("sa", a, b);
 }
+void	simple_sort(t_list **a, t_list **b)
+{
+	t_list *temp_b;
+	int **moves;
+	int index;
+	int i;
+	
+	int z , y , c;
+	z = (*a)->data;
+	y = (*a)->next->data;
+	c = (*a)->next->next->data;
+	while (length(*a) > 3)
+		make_operation("pb", a, b);
+	if (length(*a) <= 3)
+		sort_three(a, b);
+	moves = malloc(sizeof(int *) * 2);
+	while (*b)
+	{
+		i = 0;
+		temp_b = *b;
+		while(temp_b)
+		{
+			moves[i++] = calcul_moves(*a, *b, temp_b->data);
+			temp_b = temp_b->next;
+		}
+		index = best_one(moves, length(*b));
+		better_call_saul(a, b, moves[index]);
+	}
+	while (is_sorted(*a) == 0)
+		make_operation("ra", a, b);
+}
+
+
 int main(int argc, char **argv)
 {
 	t_info	*info;
@@ -474,8 +651,6 @@ int main(int argc, char **argv)
 	if (argc <= 2)
 		return (0);
 	store_and_check(&info, &stack_a, argc, argv);
-	printf("\n");
-	// while(i < stack_a->capacity)
-	// 	printf(" %d", stack_a->arr[i++]);
 	main_sort(&info, &stack_a);
 }
+

@@ -59,10 +59,12 @@ int is_lis_in_stack(t_list *a, t_lis_info *lis);
 t_list *newnode(int data);
 int	biggest_one(t_list *a);
 int	best_one(int **moves, int i);
+void	better_call_saul(t_list **a, t_list **b,int *moves);
 
 /*sort*/
-void	sort(t_info **info, t_list **a);
+void	sort(t_info **info, t_list **a, t_list **b);
 void	bubblesort(int *arr, int n);
+void	simple_sort(t_list **a, t_list **b);
 
 /*fake operations*/
 void fake_rotate(t_list *stack);
@@ -70,8 +72,9 @@ void fake_reverse_rotate(t_list *stack);
 
 /*operations*/
 void    make_operation(char *x, t_list **a, t_list **b);
-void	rotate(t_list **stack);
-void	reverse_rotate(t_list **stack);
+int	rotate(t_list **stack);
+int	reverse_rotate(t_list **stack);
+int	 swap(t_list **a);
 /*--*/
 int		calculatemoves(t_list* stackA, int num);
 
