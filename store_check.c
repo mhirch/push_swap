@@ -6,7 +6,7 @@
 /*   By: mhirch <mhirch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 12:37:35 by mhirch            #+#    #+#             */
-/*   Updated: 2023/04/14 16:52:18 by mhirch           ###   ########.fr       */
+/*   Updated: 2023/04/16 18:14:14 by mhirch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,8 @@ t_info *initialize_info(int a)
 {
 	t_info *s = malloc(sizeof(t_info));
 	s->capacity = a;
-	s->size = 0;
 	s->arr = malloc(sizeof(int) * a);
-	return s;
+	return (s);
 }
 
 void	check(char **tab)
@@ -86,6 +85,7 @@ void	store_and_check(t_info **info,t_list **stack_a, int argc, char **argv)
 		args = ft_strjoin(args, argv[i++]);
 	tab = ft_split(args, ' ');
 	check(tab);
+	free(args);
 	i = 0;
 	while (tab[i])
 		i++;
@@ -95,5 +95,7 @@ void	store_and_check(t_info **info,t_list **stack_a, int argc, char **argv)
 	{
 		(*info)->arr[i] = ft_atoi(tab[i]);
 		add_node(stack_a,(*info)->arr[i]);
+		free(tab[i]);
 	}
+	free(tab);
 }
