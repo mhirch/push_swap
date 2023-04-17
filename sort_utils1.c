@@ -6,7 +6,7 @@
 /*   By: mhirch <mhirch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 16:51:19 by mhirch            #+#    #+#             */
-/*   Updated: 2023/04/16 18:18:20 by mhirch           ###   ########.fr       */
+/*   Updated: 2023/04/17 18:27:19 by mhirch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void get_lis(t_lis_info *lis, t_info *a)
 	int current_index;
 	int current_value;
 	
-	lis->lis = malloc(lis->length_lis * sizeof(int));
+	// lis->lis = malloc(lis->length_lis * sizeof(int));
 	current_index = lis->length_lis - 1;
 	current_value = a->arr[lis->max_lis_index];
 	while (current_index >= 0)
@@ -67,6 +67,7 @@ t_lis_info *initialize_lis(int a)
 	lis->max_lis_index = 0;
 	lis->length = malloc(a * sizeof(int));
 	lis->index_of_lis = malloc(a * sizeof(int));
+	lis->lis = malloc(lis->length_lis * sizeof(int));
 	j = 0;
 	while( j < a)
 	{
@@ -94,7 +95,6 @@ void	magic(t_list **b,t_list **a)
 	int i,j;
 	int index;
 	int position = 0;
-
 	moves = malloc(sizeof(int *) * length(*b));
 	while (*b)
 	{
@@ -111,7 +111,7 @@ void	magic(t_list **b,t_list **a)
 		while (++j < i)
 			free(moves[j]);
 	}
-	// free(moves);
+	free(moves);
 	position = find_position(*a, smallest_in_stack(*a));
 	while (position != 1)
 	{

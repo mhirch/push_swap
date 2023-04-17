@@ -6,7 +6,7 @@
 /*   By: mhirch <mhirch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/16 14:32:16 by mhirch            #+#    #+#             */
-/*   Updated: 2023/04/16 16:21:58 by mhirch           ###   ########.fr       */
+/*   Updated: 2023/04/17 18:10:21 by mhirch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ void	case6(t_list **a, t_list **b, int *move_a, int *move_b)
 	}
 }
 
-int is_lis_in_stack(t_list *a, t_lis_info *lis)
+int	is_lis_in_stack(t_list *a, t_lis_info *lis)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (i < lis->length_lis)
@@ -54,4 +54,12 @@ int is_lis_in_stack(t_list *a, t_lis_info *lis)
 		i++;
 	}
 	return (0);
+}
+
+void	free_lis_info(t_lis_info *lis)
+{
+	free(lis->length);
+	free(lis->index_of_lis);
+	free(lis->lis);
+	free(lis);
 }

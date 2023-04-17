@@ -6,19 +6,18 @@
 /*   By: mhirch <mhirch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 17:00:29 by mhirch            #+#    #+#             */
-/*   Updated: 2023/04/16 17:19:21 by mhirch           ###   ########.fr       */
+/*   Updated: 2023/04/17 18:22:00 by mhirch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-
-int length(t_list *stack)
+int	length(t_list *stack)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while(stack)
+	while (stack)
 	{
 		stack = stack->next;
 		i++;
@@ -28,12 +27,9 @@ int length(t_list *stack)
 
 int	*calcul_moves(t_list *a, t_list *b, int data)
 {
-	int *moves;
-	int position;
-	int i,j;
+	int	*moves;
+	int	position;
 
-	i = 0;
-	j = 0;
 	moves = malloc(sizeof(int) * 2);
 	position = find_position(b, data);
 	moves[0] = moves_stack_a(a, data);
@@ -43,7 +39,7 @@ int	*calcul_moves(t_list *a, t_list *b, int data)
 
 int	find_position(t_list *stack, int number)
 {
-	int position;
+	int	position;
 
 	position = 0;
 	while (stack->next)
@@ -85,7 +81,7 @@ int	best_one(int **moves, int i)
 	check = index[j];
 	one = j;
 	j++;
-	while (j < i)
+	while (j++ < i)
 	{
 		if (check > index[j])
 		{
@@ -94,5 +90,6 @@ int	best_one(int **moves, int i)
 		}
 		j++;
 	}
+	free(index);
 	return (one);
 }

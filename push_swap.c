@@ -6,7 +6,7 @@
 /*   By: mhirch <mhirch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 12:32:11 by mhirch            #+#    #+#             */
-/*   Updated: 2023/04/16 17:55:59 by mhirch           ###   ########.fr       */
+/*   Updated: 2023/04/17 18:22:57 by mhirch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,23 @@ void printList(t_list *head)
 
 void	f()
 {
-	system("leaks a.out");
+	system("leaks push_swap");
+}
+
+void free_list(t_list *head)
+{
+	t_list *temp;
+	while (head != NULL)
+	{
+		temp = head;
+		head = head->next;
+		free(temp);
+	}
 }
 
 int	main(int argc, char **argv)
 {
-	atexit(f);
+	// atexit(f);
 	t_info	*info;
 	t_list	*stack_a;
 	int		i;
@@ -44,7 +55,8 @@ int	main(int argc, char **argv)
 		return (0);
 	store_and_check(&info, &stack_a, argc, argv);
 	main_sort(&info, &stack_a);
-	// printList(stack_a);
-	free(stack_a);
-	free(info);
+	printList(stack_a);
+	free_list(stack_a);
+	free(info->arr);
+    free(info);
 }

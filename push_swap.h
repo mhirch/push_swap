@@ -16,7 +16,6 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
-// # include <limits.h>
 # include <unistd.h>
 # include <stdbool.h>
 # define INT_MIN  -2147483648
@@ -62,6 +61,7 @@ void		get_index(t_lis_info *lis, t_info *a);
 void 		get_lis(t_lis_info *lis, t_info *a);
 int			is_lis_in_stack(t_list *a, t_lis_info *lis);
 void		out_of_lis_in_b(t_list **a, t_list **b, t_lis_info *lis, int capacity);
+void		free_lis_info(t_lis_info *lis);
 
 /*sort*/
 void		main_sort(t_info **info, t_list **a);

@@ -6,7 +6,7 @@
 /*   By: mhirch <mhirch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/16 14:31:07 by mhirch            #+#    #+#             */
-/*   Updated: 2023/04/16 16:21:34 by mhirch           ###   ########.fr       */
+/*   Updated: 2023/04/17 18:28:01 by mhirch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,7 @@ void	continue_the_process(t_list **a, t_list **b, int *move_a, int *move_b)
 
 void	better_call_saul(t_list **a, t_list **b, int *moves)
 {
-	int	i;
-
-	i = 0;
+		printf("---\n");
 	if (moves[0] > 0 && moves[1] > 0)
 	{
 		if (small_one(moves[0], moves[1]) == 1)
@@ -92,4 +90,3 @@ void	better_call_saul(t_list **a, t_list **b, int *moves)
 	}
 	continue_the_process(a, b, &moves[0], &moves[1]);
 }
-

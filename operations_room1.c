@@ -6,7 +6,7 @@
 /*   By: mhirch <mhirch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/16 15:56:06 by mhirch            #+#    #+#             */
-/*   Updated: 2023/04/16 18:03:17 by mhirch           ###   ########.fr       */
+/*   Updated: 2023/04/17 16:40:22 by mhirch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	double_operattion(char *x, t_list **a, t_list **b)
 {
 	int	i;
 
+	i = 0;
 	if (ft_strcmp(x, "rrr") == 0)
 	{
 		i = reverse_rotate(a);
@@ -33,6 +34,7 @@ void	make_operation(char *x, t_list **a, t_list **b)
 {
 	int	i;
 
+	i = 0;
 	if (ft_strcmp(x, "ra") == 0)
 		i = rotate(a);
 	else if (ft_strcmp(x, "rb") == 0)

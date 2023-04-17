@@ -6,7 +6,7 @@
 /*   By: mhirch <mhirch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 16:56:27 by mhirch            #+#    #+#             */
-/*   Updated: 2023/04/16 18:17:09 by mhirch           ###   ########.fr       */
+/*   Updated: 2023/04/17 18:23:58 by mhirch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,20 +23,18 @@ void	main_sort(t_info **info, t_list **a)
 		simple_sort(a, &b);
 	else
 		sort(info, a, &b);
+	// free(b);
 }
 
 void	sort(t_info **info, t_list **a, t_list **b)
 {
 	t_lis_info *lis;
-	int small_num;
-	int position;
 	
 	lis = initialize_lis((*info)->capacity);
 	get_index(lis, *info);
 	get_lis(lis, *info);
 	out_of_lis_in_b(a, b, lis, (*info)->capacity);
-	free(lis);
-	free(*info);
+	free_lis_info(lis);
 	magic(b, a);
 }
 
@@ -89,7 +87,7 @@ void	simple_sort(t_list **a, t_list **b)
 		make_operation("pb", a, b);
 	if (length(*a) <= 3)
 		sort_three(a, b);
-	moves = malloc(sizeof(int *) * 2);
+	moves = malloc(sizeof(int *) * length(*b));
 	while (*b)
 	{
 		i = 0;

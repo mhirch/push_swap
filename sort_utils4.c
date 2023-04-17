@@ -6,7 +6,7 @@
 /*   By: mhirch <mhirch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/16 14:26:51 by mhirch            #+#    #+#             */
-/*   Updated: 2023/04/16 15:03:17 by mhirch           ###   ########.fr       */
+/*   Updated: 2023/04/17 18:12:45 by mhirch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 int	small_one(int a, int b)
 {
-	int r;
+	int	r;
 
-	if ( ft_abs(a) < ft_abs(b))
+	if (ft_abs(a) < ft_abs(b))
 		r = 1;
 	else if (ft_abs(a) > ft_abs(b))
 		r = 2;
@@ -27,7 +27,7 @@ int	small_one(int a, int b)
 
 int	smallest_in_stack(t_list *a)
 {
-	int small_num;
+	int	small_num;
 
 	small_num = INT_MAX;
 	while (a->next)
@@ -43,7 +43,7 @@ int	smallest_in_stack(t_list *a)
 
 int	small_in_top(t_list **a, t_list **b, int capacity, int small_num)
 {
-	int position;
+	int	position;
 
 	position = find_position(*a, small_num);
 	while (capacity-- > 0)
@@ -59,19 +59,20 @@ int	small_in_top(t_list **a, t_list **b, int capacity, int small_num)
 				make_operation("rra", a, b);
 			}
 		}
-		else 
+		else
 			break ;
 	}
 	return (position);
 }
 
-int bigger_than_data(t_list *a, int data, int i)
+int	bigger_than_data(t_list *a, int data, int i)
 {
-	int bigger[i];
-	int j;
-	int one;
-	
+	int	*bigger;
+	int	j;
+	int	one;
+
 	j = 0;
+	bigger = malloc(sizeof(int) * i);
 	while (a)
 	{
 		if (a->data > data)
@@ -86,12 +87,13 @@ int bigger_than_data(t_list *a, int data, int i)
 			one = bigger[j];
 		j++;
 	}
+	free(bigger);
 	return (one);
 }
 
 int	biggest_one(t_list *a)
 {
-	int bigg_num;
+	int	bigg_num;
 
 	bigg_num = INT_MIN;
 	while (a->next)

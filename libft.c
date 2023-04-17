@@ -6,7 +6,7 @@
 /*   By: mhirch <mhirch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 16:51:42 by mhirch            #+#    #+#             */
-/*   Updated: 2023/04/16 18:12:58 by mhirch           ###   ########.fr       */
+/*   Updated: 2023/04/17 15:37:35 by mhirch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ char	*ft_strjoin(char *s1, char *s2)
 		return (ft_strdup(s1));
 	if (!s1)
 		return (ft_strdup(s2));
-	j = ft_strlen((char *)s1) + ft_strlen((char *)s2) + 2;
+	j = ft_strlen(s1) + ft_strlen(s2) + 2;
 	s3 = (char *)malloc(sizeof(char) * j);
 	if (!s3)
 		return (NULL);
