@@ -6,7 +6,7 @@
 /*   By: mhirch <mhirch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 16:56:27 by mhirch            #+#    #+#             */
-/*   Updated: 2023/04/17 18:23:58 by mhirch           ###   ########.fr       */
+/*   Updated: 2023/04/18 17:44:42 by mhirch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	main_sort(t_info **info, t_list **a)
 {
-	t_list *b;
+	t_list	*b;
 
 	b = NULL;
 	if (is_sorted(*a) == 1)
@@ -23,13 +23,12 @@ void	main_sort(t_info **info, t_list **a)
 		simple_sort(a, &b);
 	else
 		sort(info, a, &b);
-	// free(b);
 }
 
 void	sort(t_info **info, t_list **a, t_list **b)
 {
-	t_lis_info *lis;
-	
+	t_lis_info	*lis;
+
 	lis = initialize_lis((*info)->capacity);
 	get_index(lis, *info);
 	get_lis(lis, *info);
@@ -38,9 +37,9 @@ void	sort(t_info **info, t_list **a, t_list **b)
 	magic(b, a);
 }
 
-int is_sorted(t_list *a)
+int	is_sorted(t_list *a)
 {
-	int i;
+	int	i;
 
 	i = length(a) - 1;
 	while (i)
@@ -59,7 +58,7 @@ void	sort_three(t_list **a, t_list **b)
 	int	z;
 	int	y;
 	int	x;
-	
+
 	z = (*a)->data;
 	y = (*a)->next->data;
 	x = (*a)->next->next->data;
@@ -75,14 +74,14 @@ void	sort_three(t_list **a, t_list **b)
 	else if (z < y && y > x && x > z)
 		make_operation("sa", a, b);
 }
+
 void	simple_sort(t_list **a, t_list **b)
 {
-	t_list *temp_b;
-	int **moves;
-	int index;
-	int i;
-	int	j;
-	
+	int		**moves;
+	int		index;
+	int		i;
+	int		j;
+
 	while (length(*a) > 3)
 		make_operation("pb", a, b);
 	if (length(*a) <= 3)
@@ -90,13 +89,7 @@ void	simple_sort(t_list **a, t_list **b)
 	moves = malloc(sizeof(int *) * length(*b));
 	while (*b)
 	{
-		i = 0;
-		temp_b = *b;
-		while(temp_b)
-		{
-			moves[i++] = calcul_moves(*a, *b, temp_b->data);
-			temp_b = temp_b->next;
-		}
+		i = check_moves(*a, *b, moves);
 		index = best_one(moves, length(*b));
 		better_call_saul(a, b, moves[index]);
 		j = -1;

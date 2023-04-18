@@ -6,13 +6,13 @@
 /*   By: mhirch <mhirch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 16:51:19 by mhirch            #+#    #+#             */
-/*   Updated: 2023/04/17 18:27:19 by mhirch           ###   ########.fr       */
+/*   Updated: 2023/04/18 16:15:21 by mhirch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void get_index(t_lis_info *lis, t_info *a)
+void	get_index(t_lis_info *lis, t_info *a)
 {
 	int	i;
 	int	j;
@@ -40,12 +40,12 @@ void get_index(t_lis_info *lis, t_info *a)
 	i = 0;
 }
 
-void get_lis(t_lis_info *lis, t_info *a)
+void	get_lis(t_lis_info *lis, t_info *a)
 {
-	int current_index;
-	int current_value;
-	
-	// lis->lis = malloc(lis->length_lis * sizeof(int));
+	int	current_index;
+	int	current_value;
+
+	lis->lis = malloc(lis->length_lis * sizeof(int));
 	current_index = lis->length_lis - 1;
 	current_value = a->arr[lis->max_lis_index];
 	while (current_index >= 0)
@@ -57,24 +57,23 @@ void get_lis(t_lis_info *lis, t_info *a)
 	}
 }
 
-t_lis_info *initialize_lis(int a)
+t_lis_info	*initialize_lis(int a)
 {
-	int j;
-	t_lis_info *lis;
-	
+	int			j;
+	t_lis_info	*lis;
+
 	lis = malloc(sizeof(t_lis_info));
 	lis->length_lis = 0;
 	lis->max_lis_index = 0;
 	lis->length = malloc(a * sizeof(int));
 	lis->index_of_lis = malloc(a * sizeof(int));
-	lis->lis = malloc(lis->length_lis * sizeof(int));
 	j = 0;
-	while( j < a)
+	while (j < a)
 	{
 		lis->length[j] = 1;
 		lis->index_of_lis[j++] = -1;
 	}
-	return(lis);
+	return (lis);
 }
 
 void	out_of_lis_in_b(t_list **a, t_list **b, t_lis_info *lis, int capacity)
@@ -88,19 +87,20 @@ void	out_of_lis_in_b(t_list **a, t_list **b, t_lis_info *lis, int capacity)
 	}
 }
 
-void	magic(t_list **b,t_list **a)
+void	magic(t_list **b, t_list **a)
 {
-	t_list *temp_b;
-	int **moves;
-	int i,j;
-	int index;
-	int position = 0;
+	t_list	*temp_b;
+	int		**moves;
+	int		index;
+	int		i;
+	int		j;
+
 	moves = malloc(sizeof(int *) * length(*b));
 	while (*b)
 	{
 		i = 0;
 		temp_b = *b;
-		while(temp_b)
+		while (temp_b)
 		{
 			moves[i++] = calcul_moves(*a, *b, temp_b->data);
 			temp_b = temp_b->next;
@@ -112,13 +112,5 @@ void	magic(t_list **b,t_list **a)
 			free(moves[j]);
 	}
 	free(moves);
-	position = find_position(*a, smallest_in_stack(*a));
-	while (position != 1)
-	{
-		position = find_position(*a, smallest_in_stack(*a));
-		if ( position >= length(*a))
-			make_operation("rra", a, b);
-		if ( position < length(*a))
-		make_operation("ra", a, b);
-	}
+	akhir_sort(a, b);
 }

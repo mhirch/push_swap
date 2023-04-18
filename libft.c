@@ -6,7 +6,7 @@
 /*   By: mhirch <mhirch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 16:51:42 by mhirch            #+#    #+#             */
-/*   Updated: 2023/04/17 15:37:35 by mhirch           ###   ########.fr       */
+/*   Updated: 2023/04/18 18:14:50 by mhirch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,10 +77,8 @@ long	ft_atoi(char *str)
 int	ft_intcmp(int a, int b)
 {
 	int	j;
-	
-	if (!b || !a)
-		j = 1337;
-	else if (a == b)
+
+	if (a == b)
 		j = 0;
 	else
 		j = 1;
@@ -91,10 +89,8 @@ char	*ft_strjoin(char *s1, char *s2)
 {
 	size_t	i;
 	size_t	z;
-	size_t	j;
 	char	*s3;
 
-	i = 0;
 	z = 0;
 	if (!s1 && !s2)
 		return (NULL);
@@ -102,10 +98,11 @@ char	*ft_strjoin(char *s1, char *s2)
 		return (ft_strdup(s1));
 	if (!s1)
 		return (ft_strdup(s2));
-	j = ft_strlen(s1) + ft_strlen(s2) + 2;
-	s3 = (char *)malloc(sizeof(char) * j);
+	i = ft_strlen(s1) + ft_strlen(s2) + 2;
+	s3 = (char *)malloc(sizeof(char) * i);
 	if (!s3)
 		return (NULL);
+	i = 0;
 	while (s1[i])
 		s3[z++] = s1[i++];
 	s3[z++] = ' ';

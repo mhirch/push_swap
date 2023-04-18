@@ -35,11 +35,11 @@ typedef struct s_list
 
 typedef struct s_lis_info
 {
-	int *length;
-	int *index_of_lis;
-	int length_lis;
-	int max_lis_index;
-	int *lis;
+	int	*length;
+	int	*index_of_lis;
+	int	length_lis;
+	int	max_lis_index;
+	int	*lis;
 }	t_lis_info;
 
 /*libft*/
@@ -53,29 +53,31 @@ int			ft_strcmp(char *s1, char *s2);
 char		*ft_strdup(char *s1);
 
 /*store_check*/
-void		store_and_check(t_info **info, t_list **stack_a,int argc, char **argv);
+void		store_and_check(t_info **i, t_list **a, int argc, char **argv);
 
 /*lis*/
-t_lis_info *initialize_lis(int a);
+t_lis_info	*initialize_lis(int a);
 void		get_index(t_lis_info *lis, t_info *a);
-void 		get_lis(t_lis_info *lis, t_info *a);
+void		get_lis(t_lis_info *lis, t_info *a);
 int			is_lis_in_stack(t_list *a, t_lis_info *lis);
-void		out_of_lis_in_b(t_list **a, t_list **b, t_lis_info *lis, int capacity);
+void		out_of_lis_in_b(t_list **a, t_list **b, t_lis_info *lis, int c);
 void		free_lis_info(t_lis_info *lis);
 
 /*sort*/
 void		main_sort(t_info **info, t_list **a);
-void		better_call_saul(t_list **a, t_list **b,int *moves);
+void		better_call_saul(t_list **a, t_list **b, int *moves);
 void		sort(t_info **info, t_list **a, t_list **b);
 void		simple_sort(t_list **a, t_list **b);
-void		magic(t_list **b,t_list **a);
+void		magic(t_list **b, t_list **a);
 void		sort_three(t_list **a, t_list **b);
 int			is_sorted(t_list *a);
+void		akhir_sort(t_list **a, t_list **b);
 
 /*utils*/
 int			biggest_one(t_list *a);
 int			ft_abs(int x);
 int			length(t_list *stack);
+int			check_moves(t_list *a, t_list *b, int **moves);
 int			*calcul_moves(t_list *a, t_list *b, int data);
 int			best_one(int **moves, int i);
 int			find_position(t_list *stack, int number);

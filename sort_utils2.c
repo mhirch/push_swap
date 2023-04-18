@@ -6,7 +6,7 @@
 /*   By: mhirch <mhirch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 17:00:29 by mhirch            #+#    #+#             */
-/*   Updated: 2023/04/17 18:22:00 by mhirch           ###   ########.fr       */
+/*   Updated: 2023/04/18 16:02:12 by mhirch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,18 +70,15 @@ int	best_one(int **moves, int i)
 	int	one;
 	int	check;
 
-	j = 0;
+	j = -1;
 	index = malloc(sizeof(int) * i);
-	while (j < i)
-	{
+	while (++j < i)
 		index[j] = calculate(moves[j][0], moves[j][1]);
-		j++;
-	}
 	j = 0;
 	check = index[j];
 	one = j;
 	j++;
-	while (j++ < i)
+	while (j < i)
 	{
 		if (check > index[j])
 		{

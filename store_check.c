@@ -6,7 +6,7 @@
 /*   By: mhirch <mhirch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 12:37:35 by mhirch            #+#    #+#             */
-/*   Updated: 2023/04/17 18:09:52 by mhirch           ###   ########.fr       */
+/*   Updated: 2023/04/18 18:16:43 by mhirch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	check(char **tab)
 		if (ft_atoi(tab[i]) > INT_MAX || ft_atoi(tab[i])
 			< INT_MIN || ft_isdigit(tab[i]) == 0)
 		{
-			printf("erreur\n");
+			write(2, "Error\n", 6);
 			exit(1);
 		}
 		j = i + 1;
@@ -69,7 +69,7 @@ void	check(char **tab)
 		{
 			if (ft_intcmp(ft_atoi(tab[i]), ft_atoi(tab[j++])) == 0)
 			{
-				printf("erreur\n");
+				write(2, "Error\n", 6);
 				exit(1);
 			}
 		}
