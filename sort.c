@@ -6,7 +6,7 @@
 /*   By: mhirch <mhirch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 16:56:27 by mhirch            #+#    #+#             */
-/*   Updated: 2023/04/18 17:44:42 by mhirch           ###   ########.fr       */
+/*   Updated: 2023/04/19 17:01:07 by mhirch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	main_sort(t_info **info, t_list **a)
 	b = NULL;
 	if (is_sorted(*a) == 1)
 		return ;
+	else if (length(*a) == 2)
+		make_operation("sa", a, &b);
 	else if (length(*a) <= 5)
 		simple_sort(a, &b);
 	else

@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   store_check.c                                      :+:      :+:    :+:   */
+/*   checker_utils1.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mhirch <mhirch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/01 12:37:35 by mhirch            #+#    #+#             */
-/*   Updated: 2023/04/19 11:29:58 by mhirch           ###   ########.fr       */
+/*   Created: 2023/04/19 08:54:17 by mhirch            #+#    #+#             */
+/*   Updated: 2023/04/19 11:50:52 by mhirch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "push_swap_bonus.h"
 
 t_list	*newnode(int data)
 {
@@ -37,16 +37,6 @@ void	add_node(t_list **head, int data)
 			temp = temp->next;
 		temp->next = newnode(data);
 	}
-}
-
-t_info	*initialize_info(int a)
-{
-	t_info	*s;
-
-	s = malloc(sizeof(t_info));
-	s->capacity = a;
-	s->arr = malloc(sizeof(int) * a);
-	return (s);
 }
 
 void	check(char **tab)
@@ -77,7 +67,7 @@ void	check(char **tab)
 	}
 }
 
-void	store_and_check(t_info **info, t_list **stack_a, int argc, char **argv)
+void	store_and_check(t_list **stack_a, int argc, char **argv)
 {
 	int		i;
 	char	*args;
@@ -90,15 +80,10 @@ void	store_and_check(t_info **info, t_list **stack_a, int argc, char **argv)
 	tab = ft_split(args, ' ');
 	check(tab);
 	free(args);
-	i = 0;
-	while (tab[i])
-		i++;
-	(*info) = initialize_info(i);
 	i = -1;
 	while (tab[++i])
 	{
-		(*info)->arr[i] = ft_atoi(tab[i]);
-		add_node(stack_a, (*info)->arr[i]);
+		add_node(stack_a, ft_atoi(tab[i]));
 		free(tab[i]);
 	}
 	free(tab);

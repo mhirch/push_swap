@@ -6,7 +6,7 @@
 /*   By: mhirch <mhirch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 16:51:42 by mhirch            #+#    #+#             */
-/*   Updated: 2023/04/18 18:14:50 by mhirch           ###   ########.fr       */
+/*   Updated: 2023/04/19 10:37:17 by mhirch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int	ft_intcmp(int a, int b)
 	return (j);
 }
 
-char	*ft_strjoin(char *s1, char *s2)
+char	*ft_strjoinn(char *s1, char *s2)
 {
 	size_t	i;
 	size_t	z;

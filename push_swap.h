@@ -47,7 +47,7 @@ int			ft_strlen(char *str);
 int			ft_isdigit(char *m);
 long		ft_atoi(char *str);
 int			ft_intcmp(int a, int b);
-char		*ft_strjoin(char *s1, char *s2);
+char		*ft_strjoinn(char *s1, char *s2);
 char		**ft_split(char *s, char c);
 int			ft_strcmp(char *s1, char *s2);
 char		*ft_strdup(char *s1);
@@ -102,5 +102,9 @@ int			reverse_rotate(t_list **stack);
 int			swap(t_list **a);
 int			push_a(t_list **a, t_list **b);
 int			push_b(t_list **a, t_list **b);
+
+
+
+void printList(t_list *head);
 
 #endif
