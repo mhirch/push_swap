@@ -103,8 +103,4 @@ int			swap(t_list **a);
 int			push_a(t_list **a, t_list **b);
 int			push_b(t_list **a, t_list **b);
 
-
-
-void printList(t_list *head);
-
 #endif

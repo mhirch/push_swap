@@ -6,11 +6,24 @@
 /*   By: mhirch <mhirch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 09:31:46 by mhirch            #+#    #+#             */
-/*   Updated: 2023/04/19 17:35:51 by mhirch           ###   ########.fr       */
+/*   Updated: 2023/04/20 13:20:37 by mhirch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap_bonus.h"
+
+void	if_rr(t_list **a, t_list **b)
+{
+	if (*a && (*a)->next && *b && (*b)->next)
+	{
+		rotate(a);
+		rotate(b);
+	}
+	else if (*b == NULL || (*b)->next == NULL)
+		rotate(a);
+	else if (*a == NULL || (*a)->next == NULL)
+		rotate(b);
+}
 
 void	double_operattion(char *x, t_list **a, t_list **b)
 {
@@ -28,15 +41,7 @@ void	double_operattion(char *x, t_list **a, t_list **b)
 	}
 	else if (ft_strcmp(x, "rr\n") == 0)
 	{
-		if (*a && (*a)->next && *b && (*b)->next)
-		{
-			rotate(a);
-			rotate(b);
-		}
-		else if (*b == NULL || (*b)->next == NULL)
-			rotate(a);
-		else if (*a == NULL || (*a)->next == NULL)
-			rotate(b);
+		if_rr(a, b);
 	}
 	else if (ft_strcmp(x, "ss\n") == 0)
 	{

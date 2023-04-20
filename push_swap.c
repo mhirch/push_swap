@@ -6,7 +6,7 @@
 /*   By: mhirch <mhirch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 12:32:11 by mhirch            #+#    #+#             */
-/*   Updated: 2023/04/19 17:30:20 by mhirch           ###   ########.fr       */
+/*   Updated: 2023/04/20 13:15:53 by mhirch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,11 @@ void	free_list(t_list *head)
 		free(temp);
 	}
 }
-void printList(t_list *head)
+
+void	printlist(t_list *head)
 {
-	t_list* temp;
-	
+	t_list	*temp;
+
 	temp = head;
 	while (temp != NULL)
 	{
@@ -43,11 +44,11 @@ int	main(int argc, char **argv)
 
 	stack_a = NULL;
 	info = NULL;
+	system("push_swap");
 	if (argc <= 2)
 		return (0);
 	store_and_check(&info, &stack_a, argc, argv);
 	main_sort(&info, &stack_a);
-	// printList(stack_a);
 	free_list(stack_a);
 	free(info->arr);
 	free(info);

@@ -6,7 +6,7 @@
 /*   By: mhirch <mhirch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 08:49:45 by mhirch            #+#    #+#             */
-/*   Updated: 2023/04/19 16:45:41 by mhirch           ###   ########.fr       */
+/*   Updated: 2023/04/20 13:23:12 by mhirch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,11 @@ void	free_list(t_list *head)
 		free(temp);
 	}
 }
-void	f()
+
+void	printlist(t_list *head)
 {
-	system("leaks checker");
-}
-void printList(t_list *head)
-{
-	t_list* temp;
-	
+	t_list	*temp;
+
 	temp = head;
 	while (temp != NULL)
 	{
@@ -39,9 +36,9 @@ void printList(t_list *head)
 	}
 	printf("\n");
 }
+
 int	main(int argc, char **argv)
 {
-	// atexit(f);
 	t_list	*stack_a;
 	t_list	*stack_b;
 	char	*instruction;
@@ -55,6 +52,5 @@ int	main(int argc, char **argv)
 	{
 		sorted_or_not(stack_a);
 	}
-	// printList(stack_a);
 	free_list(stack_a);
 }

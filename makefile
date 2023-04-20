@@ -6,7 +6,7 @@
 #    By: mhirch <mhirch@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/17 16:08:26 by mhirch            #+#    #+#              #
-#    Updated: 2023/04/19 10:35:11 by mhirch           ###   ########.fr        #
+#    Updated: 2023/04/20 13:12:32 by mhirch           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,7 @@ FILES = push_swap.c libft.c libft2.c operations_room1.c operations_room2.c \
 	sort_utils1.c sort_utils2.c sort_utils3.c sort_utils4.c sort_utils5.c \
 	sort_utils6.c sort_utils7.c sort.c split.c store_check.c 
 
-BONUS_FILES = ./get_next_line/get_next_line.c  ./get_next_line/get_next_line_utils.c \
+BONUS_FILES = ./get_next_line/get_next_line.c ./get_next_line/get_next_line_utils.c \
 	operations_room1_bonus.c operations_room2_bonus.c checker_utils2.c \
 	libft.c libft2.c split.c checker.c checker_utils1.c
 
