@@ -6,7 +6,7 @@
 #    By: mhirch <mhirch@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/17 16:08:26 by mhirch            #+#    #+#              #
-#    Updated: 2023/04/20 13:12:32 by mhirch           ###   ########.fr        #
+#    Updated: 2023/04/20 15:56:41 by mhirch           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,13 +36,14 @@ BONUS_OBJ = $(BONUS_FILES:.c=.o)
 
 all: $(PROGRAM_NAME)
 
-$(PROGRAM_NAME): $(HEADER) $(OBJ)
-	$(CC) $(CFLAGS) $(FILES) -o $(PROGRAM_NAME)
+$(PROGRAM_NAME): $(OBJ) $(HEADER)
+	$(CC) $(OBJ) -o $(PROGRAM_NAME)
+
 
 bonus : $(BONUS_HEADER) $(BONUS_OBJ)
-	$(CC) $(CFLAGS) $(BONUS_FILES) -o $(CHECKER_NAME) 
+	$(CC) $(BONUS_OBJ) -o $(CHECKER_NAME) 
 	
-%.o: %.c $(HEADER) $(B_HEADER)
+%.o: %.c $(HEADER) $(BONUS_HEADER)
 	$(CC) -g $(CFLAGS) -c $< -o $@
 
 clean:

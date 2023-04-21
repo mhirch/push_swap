@@ -6,7 +6,7 @@
 /*   By: mhirch <mhirch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 16:56:27 by mhirch            #+#    #+#             */
-/*   Updated: 2023/04/19 17:01:07 by mhirch           ###   ########.fr       */
+/*   Updated: 2023/04/20 15:36:16 by mhirch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,13 +44,16 @@ int	is_sorted(t_list *a)
 	int	i;
 
 	i = length(a) - 1;
-	while (i)
+	if (a)
 	{
-		if (a->data < a->next->data)
-			i--;
-		else
-			return (0);
-		a = a->next;
+		while (i)
+		{
+			if (a->data < a->next->data)
+				i--;
+			else
+				return (0);
+			a = a->next;
+		}
 	}
 	return (1);
 }

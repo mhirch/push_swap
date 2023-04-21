@@ -6,7 +6,7 @@
 /*   By: mhirch <mhirch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 17:09:56 by mhirch            #+#    #+#             */
-/*   Updated: 2023/04/18 15:47:24 by mhirch           ###   ########.fr       */
+/*   Updated: 2023/04/20 15:13:36 by mhirch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ int	moves_stack_b(t_list *b, int position)
 
 	moves = 0;
 	j = length(b);
-	if (position < j / 2)
+	if (position <= j / 2)
 		moves = position;
-	if (position >= j / 2)
+	if (position > j / 2)
 		moves = (j - position) * -1;
 	return (moves);
 }
@@ -89,9 +89,9 @@ int	moves_stack_a(t_list *a, int data)
 	j = place_to_be_replaced(a, data);
 	position = find_position(a, j);
 	i = length(a);
-	if (position < i / 2)
+	if (position <= i / 2)
 		moves = position;
-	if (position >= i / 2)
+	if (position > i / 2)
 		moves = (i - position) * -1;
 	return (moves);
 }

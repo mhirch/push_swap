@@ -6,7 +6,7 @@
 /*   By: mhirch <mhirch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 08:50:52 by mhirch            #+#    #+#             */
-/*   Updated: 2023/04/19 17:56:54 by mhirch           ###   ########.fr       */
+/*   Updated: 2023/04/20 16:00:13 by mhirch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ typedef struct s_list
 	struct s_list	*next;
 }	t_list;
 
-// int			ft_strlen(char *str);
 int		ft_isdigit(char *m);
 long	ft_atoi(char *str);
 int		ft_intcmp(int a, int b);

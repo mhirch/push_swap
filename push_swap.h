@@ -88,7 +88,6 @@ int			moves_stack_a(t_list *a, int data);
 int			small_one(int a, int b);
 int			small_in_top(t_list **a, t_list **b, int capacity, int small_num);
 int			smallest_in_stack(t_list *a);
-int			to_be_replaced(t_list *a, int data);
 int			bigger_than_data(t_list *a, int data, int i);
 void		case4(t_list **a, t_list **b, int *move_a, int *move_b);
 void		case5(t_list **a, t_list **b, int *move_a, int *move_b);
