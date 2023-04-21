@@ -6,7 +6,7 @@
 /*   By: mhirch <mhirch@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/16 15:56:06 by mhirch            #+#    #+#             */
-/*   Updated: 2023/04/19 17:30:10 by mhirch           ###   ########.fr       */
+/*   Updated: 2023/04/21 14:35:16 by mhirch           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,8 @@ void	make_operation(char *x, t_list **a, t_list **b)
 	else if (ft_strcmp(x, "sa") == 0)
 		i = swap(a);
 	if (i == 1)
-		printf("%s\n", x);
+	{
+		write (1, x, ft_strlen(x));
+		write (1, "\n", 1);
+	}
 }
